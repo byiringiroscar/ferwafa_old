@@ -1,0 +1,130 @@
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              Profile
+            </h3>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Team-Profile</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="border-bottom text-center pb-4">
+                        <img src="{{ team.team_picture.url }}" alt="profile" class="img-lg rounded-circle mb-3" style="height: 130px; width: 140px;"/>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'team_profile' team.id %}"><button class="btn btn-success">Complete Team Profile</button></a>
+
+                               {% if player  %}
+                          <a href="{% url 'view_player' team.id %}"><button class="btn btn-success">View player</button></a>
+                            {% endif %}
+
+
+                        </div>
+                      </div>
+
+                      <div class="py-4">
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Team Name
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ team.team_name }}
+                          </span>
+                        </p>
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Team President
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ team.team_president }}
+                          </span>
+                        </p>
+                          {% if team_profile.team_stadium is not None %}
+                          <p class="clearfix">
+                          <span class="float-left">
+                            Team Stadium
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ team_profile.team_stadium }}
+                          </span>
+                        </p>
+                          {% endif %}
+                      {% if team_profile.team_location is not None %}
+                          <p class="clearfix">
+                          <span class="float-left">
+                            Team Location
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ team_profile.team_location }}
+                          </span>
+                        </p>
+                          {% endif %}
+                      {% if team_profile.team_founded is not None %}
+                          <p class="clearfix">
+                          <span class="float-left">
+                            Team Founded
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ team_profile.team_founded }}
+                          </span>
+                        </p>
+                          {% endif %}
+                      {% if team_profile.team_contact is not None %}
+                          <p class="clearfix">
+                          <span class="float-left">
+                            Team Contact
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ team_profile.team_contact }}
+                          </span>
+                        </p>
+                          {% endif %}
+                      {% if team_profile.team_link is not None %}
+                          <a href="{{ team_profile.team_link }}"><button type="button" class="btn btn-info btn-fw" >club Link</button></a>
+                          {% endif %}
+
+                      </div>
+                      <a href="{% url 'add_player' team.id %}"><button class="btn btn-primary btn-block">Add Player</button></a>
+                    </div>
+                    <div class="col-lg-8 pl-lg-5">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <h3>{{ team.team_name }} FC</h3>
+
+                        </div>
+                        <div>
+                          <button class="btn btn-primary">Request</button>
+                        </div>
+                      </div>
+
+                      <div class="profile-feed">
+                        <div class="d-flex align-items-start profile-feed-item">
+                          <div class="ml-4">
+                            <img src="{{ team.team_picture.url }}" alt="sample" class="rounded mw-100" style="height: 400px; width: 430px;"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+{% endblock %}

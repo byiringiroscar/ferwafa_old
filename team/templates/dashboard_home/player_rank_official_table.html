@@ -1,0 +1,43 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              Choose Season Ranking
+            </h3>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Rank</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                      {% for ranking in ranking %}
+                    <div class="col-md-4 col-sm-6 d-flex justify-content-center border-right">
+                      <div class="wrapper text-center">
+                        <h4 class="card-title">{{ ranking.ranking_year }}</h4>
+                        <p class="card-description">{{ ranking.ranking_name }}</p>
+                        <a href="{% url 'player_table_points' ranking.id %}"><button class="btn btn-outline-primary" style="margin-bottom: 1cm;">Rank</button></a>
+                      </div>
+                    </div>
+                      {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+{% endblock %}

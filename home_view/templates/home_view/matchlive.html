@@ -1,0 +1,70 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+    <!--BREADCRUMBS BEGIN-->
+<section class="image-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="info">
+                    <div class="wrap">
+                        <ul class="breadcrumbs">
+                            <li><a href="{% url 'home_view' %}">Main</a>/</li>
+                            <li>Category</li>
+                        </ul>
+                        <h1>Category</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--BREADCRUMBS END-->
+
+    <div class="match-live-date">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6"><div class="date">25 Sep 2016 <span>by</span> Mason Carrington</div></div>
+            <div class="col-md-6"><div class="event">Championship</div></div>
+        </div>
+    </div>
+</div>
+
+    <!--MACTH LIVE INFO BEGIN-->
+
+    <div class="match-live-info-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+<div class="match-live-info">
+    <div class="title"> Team 1 – Team 2 </div>
+    <div class="match-info">
+        <div class="team">
+            <div class="avatar">
+                <img src="{% static 'images/soccer/team-logo1.png' %}" alt="team-logo"></div>
+            <div class="text">
+                Team 1
+            </div>
+        </div>
+        <div class="score">
+            0:0        </div>
+        <div class="team right  wpb_animate_when_almost_visible wpb_flipInX flipInX wpb_start_animation animated">
+            <div class="text">
+                Team 2
+            </div>
+            <div class="avatar">
+                <img src="{% static 'images/soccer/team-logo2.png' %}" alt="team-logo">   </div>
+        </div>
+    </div>
+    <div class="title">
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--MACTH LIVE INFO END-->
+{% endblock %}

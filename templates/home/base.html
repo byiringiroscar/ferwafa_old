@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat%7COpen+Sans:700,400%7CRaleway:400,800,900" rel="stylesheet" />
+    <link rel="icon" href="{% static 'images/soccer/ferwafa.png' %}" type="image/x-icon">
+    <link href="css-min/soccer.min.css" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/library/bootstrap.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'dev-assets/preloader-default.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'dev-assets/demo-switcher.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css-min/soccer.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!--
+
+    Enable one styles which the you want
+
+    <link href="css-min/soccer.min.css" rel="stylesheet" type="text/css" />
+    <link href="css-min/hockey.min.css" rel="stylesheet" type="text/css" />
+    <link href="css-min/basketball.min.css" rel="stylesheet" type="text/css" />
+    <link href="css-min/football.min.css" rel="stylesheet" type="text/css" />
+    <link href="css-min/baseball.min.css" rel="stylesheet" type="text/css" />
+    <link href="css-min/dota.min.css" rel="stylesheet" type="text/css" />
+    <link href="css-min/csgo.min.css" rel="stylesheet" type="text/css" />
+
+    All libraries included in this css, concating rules in /grunt/cssmin.js
+    Use grunt default task for creating this files
+
+    -->
+</head>
+
+<body>
+
+	<div class="preloader-wrapper" id="preloader">
+    <div class="motion-line dark-big"></div>
+    <div class="motion-line yellow-big"></div>
+    <div class="motion-line dark-small"></div>
+    <div class="motion-line yellow-normal"></div>
+    <div class="motion-line yellow-small1"></div>
+    <div class="motion-line yellow-small2"></div>
+</div>
+
+
+    <!--MAIN MENU WRAP BEGIN-->
+<div class="main-menu-wrap sticky-menu">
+    <div class="container">
+        <a href="{% url 'home_view' %}" class="custom-logo-link"><img src="{% static 'images/soccer/ferwafa.png' %}" alt="logo" class="custom-logo" style="width:80px; height: 80px;"></a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#team-menu" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <nav class="navbar">
+            <div class="collapse navbar-collapse" id="team-menu">
+                <ul class="main-menu nav">
+                    <li class="active">
+                        <a href="{% url 'home_view' %}"><span>Home</span></a>
+
+                    </li>
+                    <li>
+                        <a href=""><span>Matches</span></a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'standings' %}"><span>Standings</span></a>
+                            </li>
+                            <li><a href="{% url 'matchlive' %}"><span>match live</span></a></li>
+                            <li><a href="{% url 'upcoming' %}"><span>upcoming match</span></a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><span>Team</span></a>
+                        <ul>
+                            <li><a href=""><span>Club Team</span></a></li>
+                            <li><a href=""><span>National Team</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'search' %}"><span>Search</span></a></li>
+                    <li><a href="{% url 'contact' %}"><span>Contact</span></a></li>
+                    <li><a href="{% url 'login' %}"><span>Login</span></a></li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<!--MAIN MENU WRAP END-->
+{% block content %}
+
+
+{% endblock %}
+
+
+    <!--FOOTER BEGIN-->
+<footer class="footer">
+    <div class="wrapper-overfllow">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="footer-left">
+                        <div class="wrap">
+                            <a href="index-2.html" class="foot-logo"><img src="{% static 'images/soccer/ferwafa.png' %}" alt="footer-logo" style="width:80px; height:80px;"></a>
+                            <p>Activated charcoal trust fund ugh prism af, beard marfa air plant stumptown gastropub farm-to-table jianbing.</p>
+                            <ul class="foot-left-menu">
+                                <li><a href="">First team</a></li>
+                                <li><a href="">Second team</a></li>
+                                <li><a href="">Amateurs</a></li>
+                                <li><a href="">Donation</a></li>
+                                <li><a href="">trophies</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 col-lg-offset-1">
+                    <div class="foot-news">
+                        <h4>Recent news</h4>
+                        <div class="item">
+                            <a href="news.html" class="image"><img class="img-responsive" src="{% static 'images/soccer/foot-news-img.jpg' %}" alt="news-image"></a>
+                            <a href="news.html" class="name">When somersaulting Sanchez shouldered Mexico’s hopes</a>
+                            <a href="news.html" class="date">25 Sep 2016</a>
+                            <span class="separator">in</span>
+                            <a href="news.html" class="category">Highlights</a>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-lg-3 col-md-4 col-sm-12">
+                    <div class="foot-contact">
+                        <h4>Contact us</h4>
+                        <ul class="contact-list">
+                            <li><i class="fa fa-flag" aria-hidden="true"></i><span>276 Rwanda Kigali</span></li>
+                            <li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:team@email.com">ferwafa@gmail.com</a></li>
+                            <li class="phone"><i class="fa fa-phone" aria-hidden="true"></i><span>+2507855555</span></li>
+                        </ul>
+                        <ul class="socials">
+                            <li><a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-menu-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="footer-menu">
+                        <li class="active"><a href=""><span>Home</span></a></li>
+                        <li><a href=""><span>Matches</span></a></li>
+                        <li><a href=""><span>Team</span></a></li>
+                        <li><a href=""><span>News</span></a></li>
+                        <li><a href=""><span>Store</span></a></li>
+                        <li><a href=""><span>Contact</span></a></li>
+                    </ul>
+                    <a href="#top" class="foot-up"><span>up <i class="fa fa-caret-up" aria-hidden="true"></i></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <script type="text/javascript" src="{% static 'js/library/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/jquery-ui.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/jquery.sticky.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/jquery.jcarousel.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/jcarousel.connected-carousels.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/owl.carousel.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/progressbar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/jquery.bracket.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/chartist.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/Chart.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/fancySelect.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/isotope.pkgd.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/imagesloaded.pkgd.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/jquery.team-coundown.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/matches-slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/header.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/matches_broadcast_listing.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/news-line.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/match_galery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/main-club-gallery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/product-slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/circle-bar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/standings.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/shop-price-filter.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/timeseries.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/radar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/preloader.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/diagram.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bi-polar-diagram.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/label-placement-diagram.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/donut-chart.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/animate-donut.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/advanced-smil.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/svg-path.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/pick-circle.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/horizontal-bar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/gauge-chart.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/stacked-bar.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/library/chartist-plugin-legend.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/chartist-plugin-threshold.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/library/chartist-plugin-pointlabels.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/treshold.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/visible.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/anchor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/landing_carousel.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/landing_sport_standings.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/twitterslider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/champions.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/landing_mainnews_slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/carousel.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/video_slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/footer_slides.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/player_test.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+
+<script type="text/javascript" src="{% static 'dev-assets/demo-switcher.js' %}"></script>
+</body>
+
+
+</html>
+
+

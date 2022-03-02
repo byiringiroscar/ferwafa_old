@@ -1,0 +1,47 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+        <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              View Player of {{ team.team_name }}
+            </h3>
+          </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+
+                        <div class="col-12">
+                            <div class="row portfolio-grid">
+                                {% for player in player %}
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                                <figure class="effect-text-in">
+                                <img src="{{ player.player_image.url }}" alt="image" style="width: 350px; height: 250px;" onclick="location.href='{% url 'team_detail' team.id %}'"/>
+
+                                <figcaption>
+
+                                    <a href="{% url 'player_detail' team.id player.id  %}"><p style="font-size: large; color: #0a0a0a"><i class="icon-sm fab fa-bandcamp mr-2"></i><b>{{ player.player_name }} {{ player.player_number }}</b></p></a>
+                                </figcaption>
+                                </figure>
+                            </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+
+        <!-- partial -->
+      </div>
+{% endblock %}

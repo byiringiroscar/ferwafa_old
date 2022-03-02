@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    {% load static %}
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Dashboard</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'dashboard/vendors/iconfonts/font-awesome/css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dashboard/vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'dashboard/vendors/css/vendor.bundle.addons.css' %}">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}">
+  <!-- endinject -->
+  <link rel="icon" href="{% static 'images/soccer/ferwafa.png' %}" type="image/x-icon">
+</head>
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="{% url 'dashboard' %}"><img src="{% static 'images/soccer/ferwafa.png' %}" style="width: 40px; align-items: flex-start" alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="{% url 'dashboard' %}"><img src="{% static 'images/soccer/ferwafa.png' %}" style="width: 30px; height: 25px;" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="fas fa-bars"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item nav-search d-none d-md-flex">
+            <div class="nav-link">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-search"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item d-none d-lg-flex">
+            <a class="nav-link" href="#">
+              <span class="btn btn-primary">+ Create new</span>
+            </a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="fas fa-bell mx-0"></i>
+              <span class="count">16</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              <a class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 16 new notifications
+                </p>
+                <span class="badge badge-pill badge-warning float-right">View all</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-danger">
+                    <i class="fas fa-exclamation-circle mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium">Application Error</h6>
+                  <p class="font-weight-light small-text">
+                    Just now
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-warning">
+                    <i class="fas fa-wrench mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium">Settings</h6>
+                  <p class="font-weight-light small-text">
+                    Private message
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-info">
+                    <i class="far fa-envelope mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium">New user registration</h6>
+                  <p class="font-weight-light small-text">
+                    2 days ago
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-envelope mx-0"></i>
+              <span class="count">25</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+              <div class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
+                </p>
+                <span class="badge badge-info badge-pill float-right">View all</span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium">David Grey
+                    <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    The meeting is cancelled
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
+                    <span class="float-right font-weight-light small-text">15 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    New product launch
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium"> Johnson
+                    <span class="float-right font-weight-light small-text">18 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    Upcoming board meeting
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-profile dropdown">
+              {% if user.is_authenticated %}
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img src="{{ profile.user_image.url }}" alt="profile" style="width: 40px; height: 40px;"/>
+            </a>
+              {% endif %}
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a href="{% url 'profile' %}" class="dropdown-item">
+                <i class="fas fa-certificate text-primary"></i>
+                Complete Profile
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'main_profile' %}">
+                <i class="fas fa fa-id-badge text-primary"></i>
+                Edit Main Profile
+              </a>
+                <a class="dropdown-item" href="{% url 'logout' %}">
+                <i class="fas fa-power-off text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-settings d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="fas fa-ellipsis-h"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="fas fa-bars"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+      <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div>
+        <div id="theme-settings" class="settings-panel">
+          <i class="settings-close fa fa-times"></i>
+          <p class="settings-heading">SIDEBAR SKINS</p>
+          <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
+          <p class="settings-heading mt-2">HEADER SKINS</p>
+          <div class="color-tiles mx-0 px-4">
+            <div class="tiles primary"></div>
+            <div class="tiles success"></div>
+            <div class="tiles warning"></div>
+            <div class="tiles danger"></div>
+            <div class="tiles info"></div>
+            <div class="tiles dark"></div>
+            <div class="tiles default"></div>
+          </div>
+        </div>
+      </div>
+      <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close fa fa-times"></i>
+        <ul class="nav nav-tabs" id="setting-panel" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="setting-content">
+
+          <!-- To do section tab ends -->
+          <div class="tab-pane fade show active scroll-wrapper" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
+            <div class="d-flex align-items-center justify-content-between border-bottom">
+              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
+              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
+            </div>
+            <ul class="chat-list">
+              <li class="list active">
+                <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+                <div class="info">
+                  <p>Thomas Douglas</p>
+                  <p>Available</p>
+                </div>
+                <small class="text-muted my-auto">19 min</small>
+              </li>
+              <li class="list">
+                <div class="profile"><img src="images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
+                <div class="info">
+                  <div class="wrapper d-flex">
+                    <p>Catherine</p>
+                  </div>
+                  <p>Away</p>
+                </div>
+                <div class="badge badge-success badge-pill my-auto mx-2">4</div>
+                <small class="text-muted my-auto">23 min</small>
+              </li>
+
+            </ul>
+          </div>
+          <!-- chat tab ends -->
+        </div>
+      </div>
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar" style="height: 450px; overflow-y: scroll">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <div class="nav-link">
+              <div class="profile-image">
+                <img src="{{ profile.user_image.url }}" alt="image" style="width: 50px; height: 50px;"/>
+              </div>
+              <div class="profile-name">
+                {% if user.is_authenticated %}
+                <p class="name">
+                  Welcome {{ user.full_name }}
+                </p>
+                  {% endif %}
+                <p class="designation">
+                  Super Admin
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">
+              <i class="fa fa-home menu-icon"></i>
+              <span class="menu-title">Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_team' %}">
+              <i class="fa fa-puzzle-piece menu-icon"></i>
+              <span class="menu-title">Add Team</span>
+            </a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'team' %}">
+              <i class="fa fa-users menu-icon"></i>
+              <span class="menu-title">Team</span>
+            </a>
+          </li>
+          <li class="nav-item d-none d-lg-block">
+            <a class="nav-link" href="{% url 'player' %}">
+              <i class="fas fa-columns menu-icon"></i>
+              <span class="menu-title">Player</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'ranking_table_name' %}">
+              <i class="fab fa-wpforms menu-icon"></i>
+              <span class="menu-title">Create Ranking</span>
+            </a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'ranking' %}">
+              <i class="fa fa-list-ol menu-icon" aria-hidden="true"></i>
+              <span class="menu-title">Ranking</span>
+            </a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'table_ranking_list' %}" aria-expanded="false" aria-controls="ui-advanced">
+              <i class="fa fa-table menu-icon" aria-hidden="true"></i>
+              <span class="menu-title">Table Ranking</span>
+            </a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_player_stat' %}" aria-expanded="false" aria-controls="ui-basic">
+              <i class="fa fa-plus-circle menu-icon" aria-hidden="true"></i>
+              <span class="menu-title">Add Player Stat</span>
+            </a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'player_rank_official_table' %}" aria-expanded="false" aria-controls="ui-basic">
+              <i class="fa fa-life-ring menu-icon"></i>
+              <span class="menu-title">Player Ranking</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'legend_story' %}" aria-expanded="false" aria-controls="editors">
+              <i class="fas fa-pen-square menu-icon"></i>
+              <span class="menu-title">Add Legend</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'livematch' %}" aria-expanded="false" aria-controls="charts">
+              <i class="fas fa-chart-pie menu-icon"></i>
+              <span class="menu-title">Live Match</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="fas fa-table menu-icon"></i>
+              <span class="menu-title">Trophy</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pages/ui-features/popups.html">
+              <i class="fas fa-minus-square menu-icon"></i>
+              <span class="menu-title">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      {% block content %}
+        {% endblock %}
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- plugins:js -->
+  <script src="{% static 'dashboard/vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'dashboard/vendors/js/vendor.bundle.addons.js' %}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="{% static 'dashboard/js/off-canvas.js' %}"></script>
+  <script src="{% static 'dashboard/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'dashboard/js/misc.js' %}"></script>
+  <script src="{% static 'dashboard/js/settings.js' %}"></script>
+  <script src="{% static 'dashboard/js/todolist.js' %}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
+  <!-- End custom js for this page-->
+</body>
+
+
+</html>

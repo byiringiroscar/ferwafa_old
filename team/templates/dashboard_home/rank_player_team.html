@@ -1,0 +1,46 @@
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              Choose Team Of Player
+            </h3>
+          </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+
+                        <div class="col-12">
+                            <div class="row portfolio-grid">
+                                {% for team in team %}
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                                <figure class="effect-text-in">
+                                <img src="{{ team.team_picture.url }}" alt="image" style="width: 350px; height: 250px;" onclick="location.href='{% url 'team_detail' team.id %}'"/>
+                                <figcaption>
+
+                                    <a href="{% url 'player_rank' rank_season.id team.id %}"><p style="font-size: large; color: #0a0a0a"><i class="icon-sm fab fa-bandcamp mr-2"></i><b>{{ team.team_name }} FC</b></p></a>
+                                </figcaption>
+                                </figure>
+                            </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+
+        <!-- partial -->
+      </div>
+{% endblock %}

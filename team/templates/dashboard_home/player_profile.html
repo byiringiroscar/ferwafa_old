@@ -1,0 +1,125 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              Profile
+            </h3>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Main Profile</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="border-bottom text-center pb-4">
+                        <img src="{{ player.player_image.url }}" alt="profile" class="img-lg rounded-circle mb-3" style="height: 130px; width: 150px;"/>
+
+                        <div class="d-flex justify-content-between">
+                        </div>
+                      </div>
+
+                      <div class="py-4">
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Names
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ player.player_name }}
+                          </span>
+                        </p>
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Player Jersey Number
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ player.player_number }}
+                          </span>
+                        </p>
+                          <p class="clearfix">
+                          <span class="float-left">
+                            Player Position
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ player.player_position }}
+                          </span>
+                        </p>
+                          {% if player_edit_profile.player_height %}
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Player height
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ player_edit_profile.player_height }}
+                          </span>
+                        </p>
+                          {% endif %}
+                      {% if player_edit_profile.player_born %}
+                          <p class="clearfix">
+                          <span class="float-left">
+                            Date of Birth
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ player_edit_profile.player_born }}
+                          </span>
+                        </p>
+                      {% endif %}
+                      {% if player_edit_profile.player_age %}
+                          <p class="clearfix">
+                          <span class="float-left">
+                            Player Age
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ player_edit_profile.player_age }}
+                          </span>
+                        </p>
+                      {% endif %}
+                      {% if player_edit_profile.player_contact %}
+                          <p class="clearfix">
+                          <span class="float-left">
+                            Player Contact
+                          </span>
+                          <span class="float-right text-muted">
+                            {{ player_edit_profile.player_contact }}
+                          </span>
+                        </p>
+                      {% endif %}
+                      {% if player_edit_profile.player_link %}
+                          <a href="{{ player_edit_profile.player_link }}"><button type="button" class="btn btn-info btn-fw" >Player Link</button></a>
+                          {% endif %}
+
+
+                      </div>
+                    </div>
+                 <div class="col-lg-8 col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Edit Main Profile</h4>
+                  <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+{% endblock %}

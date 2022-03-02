@@ -1,0 +1,67 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              Add Live Match
+            </h3>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">LiveMatch</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row" style="height: 450px; overflow-y: scroll">
+                  <div class="col-lg-6 col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Add Legend</h4>
+                  <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="row">
+                            <div class="col-12 grid-margin">
+                              <div class="card">
+                                <div class="card-body">
+                                  <div class="row">
+                                    {% for match in match %}
+                                    <div class="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center border-right">
+                                      <div class="wrapper text-center">
+                                        <h4 class="card-title">{{ match.team1 }} vs {{ match.team2 }}</h4>
+                                        <p class="card-description">{{ match.team1_score }} --- {{ match.team2_score }}</p>
+                                        <a href=""><button class="btn btn-outline-primary" style="margin-bottom: 1cm;">Suspend</button></a>
+                                      </div>
+                                    </div>
+                                        {% endfor %}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+{% endblock %}
