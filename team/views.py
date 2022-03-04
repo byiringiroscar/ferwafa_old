@@ -14,7 +14,7 @@ User = get_user_model()
 
 
 # Create your views here.
-@login_required
+@login_required()
 def dashboard(request):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
