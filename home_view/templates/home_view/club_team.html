@@ -1,0 +1,72 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="main-club-stuff">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="soccer-h4">Rwanda Premier League</h4>
+                <ul class="player-filters" role="tablist">
+
+                    <li>
+                        <a href="#rwanda" role="tab" data-toggle="tab">
+                            Rwanda team
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content">
+        <div class="tab-pane active" role="tabpanel">
+            <div id="managers_carousel" class="carousel slide main-stuff-slider" data-ride="carousel" >
+                <div class="carousel-inner" role="listbox" >
+
+                    <div class="item active">
+                        <div class="container">
+                            <div class="row">
+                                {% for tea in team %}
+                                <div class="col-md-4">
+                                    <div class="card-deck">
+                                        <div class="card " >
+                                            <img class="card-img-top" src="{{ tea.team_picture.url }}" style="width: 190px; height: 200px; border-radius: 30%" alt="Card image cap" >
+                                            <div class="card-body" style="color:white;">
+                                              <h5 class="card-title" style="color:white;">Club: {{ tea.team_name }}</h5>
+                                            </div>
+                                            <div class="card-footer" style="color:white;">
+                                              <small class="text-muted" style="color:white;">Owner: {{ tea.team_president }}</small>
+                                            </div>
+                                          </div>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" ><a href="{% url 'home_team_detail' tea.id %}" style="color: black"><b>View</b></a></button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+    <div class="call-to-action">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-sm-9 col-xs-6">
+                <div class="text">Become Part of Partner</div>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-6 text-right">
+                <a href="" class="join">Join us</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

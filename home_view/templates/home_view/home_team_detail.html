@@ -1,0 +1,125 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="club-wrap">
+        <div class="container">
+            <div class="row row-eq-height">
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <h4>Rwanda Premier League</h4>
+                    <ul class="tab-filters">
+                        <li class="active"><a href="#all">Team</a></li>
+                    </ul>
+                    <a href="" class="btn small club-top-btn">Players of This Team</a>
+                </div>
+                </div>
+                {% if team_prof.team_link is not None %}
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <a href="" class="btn small club-top-btn">Watch video</a>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="club-top-info">
+            <div class="organisation-header-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="club-logo  wpb_animate_when_almost_visible wpb_zoomInLeft zoomInLeft wpb_start_animation animated">
+                    <img class="img-responsive" src="{{ team.team_picture.url }}" alt="club logo"  style="width: 190px; height: 200px; border-radius: 40%; margin-top: 1cm;">
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="org-club-info">
+                                        <div class="item country">
+                        <img src="{% static 'images/common/rwandaflag.jpg' %}" alt="flag" style="height: 10px; width: 12px;">
+                        Rwanda               </div>
+
+                    <div class="item"><span>Team Name:</span> {{ team.team_name }}</div>
+                    <div class="item"><span>President:</span> {{ team.team_president }}</div>
+                    {% if team_prof.team_founded is not None %}
+                    <div class="item"><span>Founded:</span> {{ team_prof.team_founded }}</div>
+                    {% endif %}
+                    {% if team_prof.team_stadium is not None %}
+                    <div class="item"><span>Ground:</span> {{ team_prof.team_stadium }}</div>
+                    {% endif %}
+                    {% if team_prof.team_location is not None %}
+                    <div class="item"><span>Location:</span> {{ team_prof.team_location }}</div>
+                    {% endif %}
+                    <a href="{% url 'home_team_player' team.id %}" class="btn btn-sm btn-outline-secondary" style="margin-top: 1cm;">Players of This Team</a>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="org-club-stat">
+                    <div class="title">Logo</div>
+                    <div class="next">
+                        <div class="avatar">
+                            <a href="" title="logo">
+                                <img src="{{ team.team_picture.url }}"  alt="logo" style="height: 65px; width: 68px; border-radius: 40%">
+                            </a>
+                        </div>
+                        <div class="info">
+                            <div class="name">{{ team.team_name }}</div>
+                            {% if team_prof.team_founded is not None %}
+                            <div class="date">{{ team_prof.team_founded }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="title">team stats</div>
+                    <div class="circle-item">
+                        <div class="circle-bar" id="circle_3" data-percent="60"></div>
+                        <div class="text">WIN </div>
+                    </div>
+                    <div class="circle-item">
+                        <div class="circle-bar" id="circle_4" data-percent="87"></div>
+                        <div class="text">LOSS </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+        </div>
+    </section>
+{#    section for standing and table#}
+    <section class="club-main-stat">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"><h6>Standing Table</h6></div>
+            <div class="col-md-12 overflow-scroll">
+
+                <table>
+                    <tr>
+                        <th>TEAM</th>
+                        <th>GP</th>
+                        <th>WIN</th>
+                        <th>DRAW</th>
+                        <th>LOSS</th>
+                        <th>PTS</th>
+                    </tr>
+                    <tr>
+                        {% for table_ranking in table_ranking %}
+                        <td>
+                            <span class="team"><img src="{{ table_ranking.team.team_picture.url }}" width="30" height="30" alt="team-logo"></span>
+                            <span>{{ table_ranking.team.team_name }}</span>
+                        </td>
+                        <td>{{ table_ranking.game_played }}</td>
+                        <td>{{ table_ranking.win }}</td>
+                        <td>{{ table_ranking.draw }}</td>
+                        <td>{{ table_ranking.loss }}</td>
+                        <td><span>{{ table_ranking.team_points }}</span></td>
+                        {% endfor %}
+                    </tr>
+                </table>
+
+            </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

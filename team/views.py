@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from authentication.models import User_profile
 from authentication.forms import ProfileForm, MainProfileForm
 from team.forms import TeamForm, Team_Profile_Form, PlayerForm, PlayerProfileForm, RankingTableForm, \
-    TableRankingStandingForm, PlayerStatisticsRankingForm, Legend_story_Form, LiveMatchForm
+    TableRankingStandingForm, PlayerStatisticsRankingForm, Legend_story_Form, LiveMatchForm, EditScoreForm, \
+    CreateTrophyForm
 from team.models import Team, Team_profile, Player, Player_profile, Ranking_Table, Table_Ranking, \
-    player_statistics_ranking, Legend_story, Live_match
+    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 
@@ -16,7 +17,7 @@ def dashboard(request):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
     team = Team.objects.filter(user=user)
-    number_of_team = Team.objects.all().count()
+    number_of_team = Team.objects.filter(user=user).count()
     team_first = Team.objects.filter(user=user)
     player_list = []
     for team_f in team_first:
@@ -163,7 +164,8 @@ def player_profile(request, id, player_id):
     if request.method == 'POST':
         form = PlayerProfileForm(request.POST or None, instance=player_edit_profile)
         if form.is_valid():
-            form.save('player_profile')
+            form.save()
+            return redirect('player_profile', id=team.id, player_id=player.id)
 
     context = {
         'user': user,
@@ -580,3 +582,86 @@ def livematch(request):
         'match': match_football
     }
     return render(request, 'dashboard_home/livematch.html', context)
+
+
+def edit_score(request, id):
+    user = request.user
+    user_profile = User_profile.objects.get(user=user)
+    live_stat_edit = get_object_or_404(Live_match, id=id)
+    form = EditScoreForm(request.POST or None, instance=live_stat_edit)
+    if request.method == 'POST':
+        form = EditScoreForm(request.POST or None, instance=live_stat_edit)
+        if form.is_valid():
+            form.save()
+            return redirect('livematch')
+    context = {
+        'user': user,
+        'profile': user_profile,
+        'form': form
+    }
+
+    return render(request, 'dashboard_home/edit_score.html', context)
+
+
+def suspend_match(request, id):
+    suspend = Live_match.objects.filter(id=id).update(suspended=True)
+    return redirect('livematch')
+
+
+def create_trophy(request):
+    user = request.user
+    user_profile = User_profile.objects.get(user=user)
+    form = CreateTrophyForm()
+    if request.method == 'POST':
+        form = CreateTrophyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('trophy')
+    else:
+        form = CreateTrophyForm
+    context = {
+        'user': user,
+        'profile': user_profile,
+        'form': form
+    }
+    return render(request, 'dashboard_home/create_trophy.html', context)
+
+
+def trophy(request):
+    user = request.user
+    user_profile = User_profile.objects.get(user=user)
+    all_trophy = Trophy.objects.all()
+    context = {
+        'user': user,
+        'profile': user_profile,
+        'trophy': all_trophy
+    }
+    return render(request, 'dashboard_home/trophy.html', context)
+
+
+def give_team_trophy(request, id):
+    user = request.user
+    user_profile = User_profile.objects.get(user=user)
+    all_team = Team.objects.all()
+    trophy_name = get_object_or_404(Trophy, id=id)
+    context = {
+        'user': user,
+        'profile': user_profile,
+        'team': all_team,
+        'trophy': trophy_name,
+    }
+    return render(request, 'dashboard_home/give_team_trophy.html', context)
+
+
+def confirm_trophy_cup(request, id, team_id):
+    trophy_type = get_object_or_404(Trophy, id=id)
+    team_trophy = get_object_or_404(Team, id=team_id)
+    check_trophy = Trophy_team.objects.filter(trophy=trophy_type, team=team_trophy)
+    if check_trophy.exists():
+        messages.error("multiple trophy on multiple team not allowed")
+        context = {'messages': messages}
+        return redirect('give_team_trophy', id=trophy_type.id)
+    if not check_trophy.exists():
+        trophy_team = Trophy_team.objects.create(trophy=trophy_type, team=team_trophy)
+        return redirect('dashboard')
+

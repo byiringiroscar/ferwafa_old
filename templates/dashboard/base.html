@@ -346,14 +346,20 @@
               <span class="menu-title">Live Match</span>
             </a>
           </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'create_trophy' %}" aria-expanded="false" aria-controls="tables">
+              <i class="fas fa-table menu-icon"></i>
+              <span class="menu-title">Create trophy</span>
+            </a>
+          </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+            <a class="nav-link" href="{% url 'trophy' %}" aria-expanded="false" aria-controls="tables">
               <i class="fas fa-table menu-icon"></i>
               <span class="menu-title">Trophy</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/ui-features/popups.html">
+            <a class="nav-link" href="{% url 'logout' %}">
               <i class="fas fa-minus-square menu-icon"></i>
               <span class="menu-title">Logout</span>
             </a>

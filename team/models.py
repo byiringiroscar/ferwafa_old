@@ -135,8 +135,8 @@ class Table_Ranking(models.Model):
 
 # trophy team
 class Trophy(models.Model):
-    trophy_name = models.CharField(max_length=100)
-    trophy_year = models.PositiveIntegerField()
+    trophy_name = models.CharField(max_length=40)
+    trophy_year = models.DateField()
 
     def __str__(self):
         return f'{self.trophy_name} -- {self.trophy_year}'
@@ -149,13 +149,13 @@ class Trophy(models.Model):
 class Trophy_team(models.Model):
     trophy = models.ForeignKey(Trophy, on_delete=models.SET_NULL, null=True)
     team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True)
-    trophy_number = models.IntegerField()
+    trophy_image = models.ImageField(default='cup.png')
 
     def __str__(self):
         return f'{self.team.team_name} -- {self.trophy.trophy_name}'
 
     class Meta:
-        verbose_name_plural = "Trophy"
+        verbose_name_plural = "Trophy Team"
         ordering = ['-id']
 
 

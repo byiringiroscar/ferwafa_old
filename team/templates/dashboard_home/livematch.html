@@ -44,8 +44,18 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center border-right">
                                       <div class="wrapper text-center">
                                         <h4 class="card-title">{{ match.team1 }} vs {{ match.team2 }}</h4>
+
                                         <p class="card-description">{{ match.team1_score }} --- {{ match.team2_score }}</p>
-                                        <a href=""><button class="btn btn-outline-primary" style="margin-bottom: 1cm;">Suspend</button></a>
+                                          <a href="{% url 'edit_score' match.id %}"><h5 class="text-info">Edit Score</h5></a>
+                                          {% if match.suspended %}
+                                        <div class="alert alert-fill-info" role="alert">
+                                                <i class="fa fa-exclamation-triangle"></i>
+                                                Suspended
+                                        </div>
+                                            {% else %}
+                                        <a href="{% url 'suspend_match' match.id %}"><button class="btn btn-outline-primary" style="margin-bottom: 1cm;">Suspend</button></a>
+                                          {% endif %}
+
                                       </div>
                                     </div>
                                         {% endfor %}

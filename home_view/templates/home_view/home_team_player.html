@@ -1,0 +1,37 @@
+{% extends 'home/base.html' %}
+{% block content %}
+
+<div class="main-store-list mt-4 mb-4">
+    <div class="container mt-4 mb-4">
+        <div class="tab-content">
+            <div id="new" class="tab-pane fade in active">
+                <div class="row ">
+                    {% for player in player %}
+                    <div class="col-md-4 col-sm-6 mt-4 mb-4">
+                        <div class="store-list-item">
+                            <div>
+                                <a href="">
+                                    <img src="{{ player.player_image.url }}" alt="product-image"  height="400">
+                                </a>
+                                <div class="info">
+                                    <span class="name">{{ player.player_name }}</span>
+                                    <span class="name">Jersey Number: {{ player.player_number }}</span>
+                                    <span class="name">Position: {{ player.player_position }}</span>
+                                    <span class="name">Age: {{ data.age }}</span>
+
+                                    <div class="btn-wrap">
+                                        <button class="btn small"><a href="{% url 'home_player_detail' team.id player.id %}" ><b>View Details</b></a></button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

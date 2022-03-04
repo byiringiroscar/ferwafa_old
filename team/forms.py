@@ -1,7 +1,11 @@
 from django import forms
 from team.models import Team, Team_profile, Player, Player_profile, Ranking_Table, Table_Ranking, \
-    player_statistics_ranking, Legend_story, Live_match
+    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team
 from django.core.exceptions import ValidationError
+from django.utils import timezone
+import datetime
+
+now = timezone.now()
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -17,7 +21,7 @@ class Team_Profile_Form(forms.ModelForm):
             attrs={'type': 'date'}
         )
     )
-    team_contact = forms.EmailField(max_length=200)
+    team_contact = forms.EmailField(max_length=200, required=False)
 
     class Meta:
         model = Team_profile
@@ -47,6 +51,15 @@ class PlayerProfileForm(forms.ModelForm):
     class Meta:
         model = Player_profile
         fields = ['player_height', 'player_born', 'player_contact', 'player_link']
+
+    def clean_player_born(self):
+        player_born = self.cleaned_data['player_born']
+        check_time = isinstance(player_born, datetime.date)
+        if not check_time:
+            raise ValidationError("invalid date check again")
+        elif player_born.year > now.year:
+            raise ValidationError("Born age must not be greater now date")
+        return player_born
 
 
 class RankingTableForm(forms.ModelForm):
@@ -160,3 +173,40 @@ class LiveMatchForm(forms.ModelForm):
         if team2_score < 0:
             raise ValidationError("Team score must be equal 0 or greater 0")
         return team2_score
+
+
+class EditScoreForm(forms.ModelForm):
+    team1_score = forms.IntegerField(label='Team 1 Score', required=True)
+    team2_score = forms.IntegerField(label='Team 2 Score', required=True)
+
+    class Meta:
+        model = Live_match
+        fields = ['team1_score', 'team2_score']
+
+    def clean_team1_score(self):
+        team1_score = self.cleaned_data['team1_score']
+        if team1_score < 0:
+            raise ValidationError("Team score must be equal 0 or greater 0")
+        return team1_score
+
+    def clean_team2_score(self):
+        team2_score = self.cleaned_data['team2_score']
+        if team2_score < 0:
+            raise ValidationError("Team score must be equal 0 or greater 0")
+        return team2_score
+
+
+class CreateTrophyForm(forms.ModelForm):
+    trophy_name = forms.CharField(max_length=20, label='Trophy Name', required=True)
+
+    trophy_year = forms.DateField(
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
+        ),
+        label='Trophy Year',
+        required=True
+    )
+
+    class Meta:
+        model = Trophy
+        fields = ['trophy_name', 'trophy_year']

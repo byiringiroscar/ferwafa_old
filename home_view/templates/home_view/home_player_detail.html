@@ -1,0 +1,93 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="player-single-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="captain-bage">Position</div>
+                    <h4 class="player-name">{{ player.player_position }}</h4>
+                </div>
+                <div class="col-md-6">
+
+<div class="player-photo">
+    <div class="number">{{ player.player_number }}</div>
+    <img class="img-responsive" src="{{ player.player_image.url }}" alt="player" style="height: 680px; width: 600px;">
+</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="player-info">
+                        <h6 class="player-info-title">summary</h6>
+                        <div class="summary">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <div class="item">Team:</div>
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-9"><img src="{{ team.team_picture.url }}" alt="flag" style="width: 20px; height: 23px; border-radius: 50%;">  {{ team.team_name }}</div>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <div class="item">Position:</div>
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-9">{{ player.player_position }}</div>
+                                {% if player_profile.player_age is not None and player_profile.player_age != 0 %}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <div class="item">Age:</div>
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-9">{{ player_profile.player_age }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <h6>club history</h6>
+                        <div class="overflow-scroll">
+                            <table>
+                                <tr>
+                                    <th>Season</th>
+                                    <th class="club">Club</th>
+                                    <th>Games</th>
+                                    <th>Goals</th>
+                                </tr>
+                                <tr>
+                                    <td>2016/2017</td>
+                                    <td class="club"><img src="{% static 'images/soccer/team-logo1.png' %}" width="30" height="30" alt="trophy"> Internacional</td>
+                                    <td>27</td>
+                                    <td><span>10</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2016/2017</td>
+                                    <td class="club"><img src="{% static 'images/soccer/team-logo2.png' %}" width="30" height="30" alt="trophy"> Internacional</td>
+                                    <td>27</td>
+                                    <td><span>10</span></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        {% if player_profile.player_link is not None %}
+                            <h6>About</h6>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <a href="{{ player_profile.player_link }}" class="btn small club-top-btn">Watch video</a>
+                            </div>
+                        {% endif %}
+
+                        {% if player_trophy_ex %}
+                        <h6>Trophies</h6>
+                        <ul class="player-trophey">
+                            {% for player_trophy in player_trophy %}
+                            <li>
+                                <img src="{{ player_trophy.trophy_image.url }}" width="100" height="150" alt="trophy">
+                                <div class="year">{{ player_trophy.trophy.trophy_year.year }}</div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <a href="" class="btn small club-top-btn">Connect with Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
