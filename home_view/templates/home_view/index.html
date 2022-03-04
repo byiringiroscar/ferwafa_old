@@ -6,58 +6,61 @@
     <div class="main-slider">
         <div id="main-slider" class="carousel slide" data-ride="carousel" data-interval="4000">
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <div class="main-slider-caption">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="match-date">26 Sep 2016 / 9:30 PM / city arena</div>
-                                    <div class="team"> Team Name 1
-                                        <div class="big-count">
-                                            2:0
+                {% for live_match in live_match|slice:":3" %}
+                    {% if forloop.first %}
+                    <div class="item active">
+                        <div class="main-slider-caption">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="match-date">{{ live_match.date }}</div>
+                                        <div class="team"> {{ live_match.team1 }}
+                                            <div class="big-count">
+                                                {{ live_match.team1_score }}:{{ live_match.team2_score }}
+                                            </div>
+                                            {{ live_match.team2 }}
                                         </div>
-                                        Team Name 2
-                                    </div>
-                                    <div class="booking">
-                                        <a href="matches-list.html">
-                                            Match Page
-                                        </a>
+                                        <div class="booking">
+                                            <a href="{{ live_match.match_link }}">
+                                                Watch live
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="item">
+                        {% else %}
+                        <div class="item">
                     <div class="main-slider-caption">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="match-date">26 Sep 2016 / 9:30 PM / city arena</div>
-                                    <div class="team"> Team Name 1 - Team Name 2
+                                    <div class="match-date">{{ live_match.date }}</div>
+                                    <div class="team"> {{ live_match.team1 }} - {{ live_match.team2 }}
                                     </div>
                                     <div class="counter" data-date="1534185200000">
                                         <ul>
                                             <li>
-                                                <div class="digit days"></div>
+                                                <div class="digit days">5</div>
                                                 <div class="descr">Days</div>
                                             </li>
                                             <li>
-                                                <div class="digit hours"></div>
+                                                <div class="digit hours">2</div>
                                                 <div class="descr">Hours</div>
                                             </li>
                                             <li>
-                                                <div class="digit minutes"></div>
+                                                <div class="digit minutes">1</div>
                                                 <div class="descr">Minutes</div>
                                             </li>
                                             <li>
-                                                <div class="digit seconds"></div>
+                                                <div class="digit seconds">4</div>
                                                 <div class="descr">Seconds</div>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="booking">
-                                        <a href="match-live.html">
+                                        <a href="{{ live_match.match_link }}">
                                             Watch live
                                         </a>
                                     </div>
@@ -66,29 +69,8 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="item">
-                    <div class="main-slider-caption">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="match-date">26 Sep 2016 / 9:30 PM / city arena</div>
-                                    <div class="team"> Team Name 1
-                                        <div class="big-count">
-                                            2:0
-                                        </div>
-                                        Team Name 2
-                                    </div>
-                                    <div class="booking">
-                                        <a href="match-live.html">
-                                            Watch live
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    {% endif %}
+                {% endfor %}
 
             </div>
 
@@ -169,31 +151,7 @@
     </div>
 </div>
 
-    <div class="main-news-list">
-    <div class="owl-carousel owl-theme match-page-slider">
-        <a href="#" class="item">
-            <img src="{% static 'images/soccer/news1.jpg' %}" class="img-responsive" alt="">
-            <span class="caption">
-                <span class="date">20 sep 2016</span>
-                <span class="name">Chelsea claims Premier League lead after</span>
-            </span>
-        </a>
-        <a href="#" class="item">
-            <img src="{% static 'images/soccer/news2.jpg' %}" class="img-responsive" alt="">
-            <span class="caption">
-                <span class="date">20 sep 2016</span>
-                <span class="name">Chelsea claims Premier League lead after</span>
-            </span>
-        </a>
-        <a href="#" class="item">
-            <img src="{% static 'images/soccer/news3.jpg' %}" class="img-responsive" alt="">
-            <span class="caption">
-                <span class="date">20 sep 2016</span>
-                <span class="name">Chelsea claims Premier League lead after</span>
-            </span>
-        </a>
-    </div>
-</div>
+
 
     <!--MAIN MACTH SHEDULE BEGIN-->
 

@@ -4,8 +4,7 @@
     <list default="true" id="41ad90c2-acbf-40f9-8af3-7569a91a2c15" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ferwafa/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ferwafa/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/team/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home_view/templates/home_view/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/home_view/templates/home_view/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1646305769466</updated>
       <workItem from="1646305771334" duration="20077000" />
-      <workItem from="1646376563776" duration="3127000" />
+      <workItem from="1646376563776" duration="6128000" />
     </task>
     <servers />
   </component>
