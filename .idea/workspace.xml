@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41ad90c2-acbf-40f9-8af3-7569a91a2c15" name="Changes" comment="" />
+    <list default="true" id="41ad90c2-acbf-40f9-8af3-7569a91a2c15" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ferwafa/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ferwafa/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/team/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/team/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,7 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1646305769466</updated>
       <workItem from="1646305771334" duration="20077000" />
-      <workItem from="1646376563776" duration="449000" />
+      <workItem from="1646376563776" duration="2059000" />
     </task>
     <servers />
   </component>

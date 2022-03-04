@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 import datetime
 
+
 now = timezone.now()
 from ckeditor.widgets import CKEditorWidget
 

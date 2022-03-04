@@ -8,11 +8,13 @@ from team.models import Team, Team_profile, Player, Player_profile, Ranking_Tabl
     player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
 
 # Create your views here.
+@login_required
 def dashboard(request):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -36,6 +38,7 @@ def dashboard(request):
     return render(request, 'dashboard_home/index.html', context)
 
 
+@login_required
 def team(request):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -48,6 +51,7 @@ def team(request):
     return render(request, 'dashboard_home/team.html', context)
 
 
+@login_required
 def player(request):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -77,6 +81,7 @@ def player(request):
 
 
 # add team
+@login_required
 def add_team(request):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -101,6 +106,7 @@ def add_team(request):
 
 
 # team detail
+@login_required
 def team_detail(request, id):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -119,6 +125,7 @@ def team_detail(request, id):
 
 
 # complete both profile and main profile
+@login_required
 def profile(request):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -136,6 +143,7 @@ def profile(request):
 
 
 # main profile
+@login_required
 def main_profile(request):
     user = request.user
     phone_number = user.phone_number
@@ -154,6 +162,7 @@ def main_profile(request):
 
 
 # player profile
+@login_required
 def player_profile(request, id, player_id):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -179,7 +188,7 @@ def player_profile(request, id, player_id):
 
 
 # end of completing both profile and main profile
-
+@login_required
 def team_profile(request, id):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -199,6 +208,7 @@ def team_profile(request, id):
 
 
 # edit main team profile
+@login_required
 def edit_main_team_profile(request, id):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -218,6 +228,7 @@ def edit_main_team_profile(request, id):
 
 
 # add player
+@login_required
 def add_player(request, id):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -248,6 +259,7 @@ def add_player(request, id):
 
 
 # view player
+@login_required
 def view_player(request, id):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -263,6 +275,7 @@ def view_player(request, id):
 
 
 # view player detail
+@login_required
 def player_detail(request, id, player_id):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -279,6 +292,7 @@ def player_detail(request, id, player_id):
 
 
 # Create ranking
+@login_required
 def ranking_table_name(request):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -299,6 +313,7 @@ def ranking_table_name(request):
 
 
 # view all ranking before you rank team
+@login_required
 def ranking(request):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -312,6 +327,7 @@ def ranking(request):
 
 
 # choose team to rank
+@login_required
 def choose_ranking_team(request, id):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -327,6 +343,7 @@ def choose_ranking_team(request, id):
     return render(request, 'dashboard_home/choose_ranking_team.html', context)
 
 
+@login_required
 def ranking_page(request, id, team_id):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -362,6 +379,7 @@ def ranking_page(request, id, team_id):
     return render(request, 'dashboard_home/ranking_page.html', context)
 
 
+@login_required
 def table_ranking_list(request):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -374,6 +392,7 @@ def table_ranking_list(request):
     return render(request, 'dashboard_home/table_ranking_list.html', context)
 
 
+@login_required
 def team_table_points(request, id):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -388,6 +407,7 @@ def team_table_points(request, id):
     return render(request, 'dashboard_home/team_table_points.html', context)
 
 
+@login_required
 def edit_table_points(request, id):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -409,6 +429,7 @@ def edit_table_points(request, id):
     return render(request, 'dashboard_home/edit_table_points.html', context)
 
 
+@login_required
 def add_player_stat(request):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -421,6 +442,7 @@ def add_player_stat(request):
     return render(request, 'dashboard_home/add_player_stat.html', context)
 
 
+@login_required
 def rank_player_team(request, id):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -435,6 +457,7 @@ def rank_player_team(request, id):
     return render(request, 'dashboard_home/rank_player_team.html', context)
 
 
+@login_required
 def player_rank(request, id, team_id):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -451,6 +474,7 @@ def player_rank(request, id, team_id):
     return render(request, 'dashboard_home/player_rank.html', context)
 
 
+@login_required
 def player_rank_points(request, id, team_id, player_id):
     user = request.user
     player_rank_season = get_object_or_404(Ranking_Table, id=id)
@@ -487,6 +511,7 @@ def player_rank_points(request, id, team_id, player_id):
     return render(request, 'dashboard_home/player_rank_points.html', context)
 
 
+@login_required
 def player_rank_official_table(request):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -499,6 +524,7 @@ def player_rank_official_table(request):
     return render(request, 'dashboard_home/player_rank_official_table.html', context)
 
 
+@login_required
 def player_table_points(request, id):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -514,6 +540,7 @@ def player_table_points(request, id):
     return render(request, 'dashboard_home/player_table_points.html', context)
 
 
+@login_required
 def edit_table_player_points(request, id):
     user = request.user
     user_profile = get_object_or_404(User_profile, user=user)
@@ -535,6 +562,7 @@ def edit_table_player_points(request, id):
     return render(request, 'dashboard_home/edit_table_player_points.html', context)
 
 
+@login_required
 def legend_story(request):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -556,12 +584,14 @@ def legend_story(request):
     return render(request, 'dashboard_home/legend_story.html', context)
 
 
+@login_required
 def delete_legend(request, id):
     legend = get_object_or_404(Legend_story, id=id)
     legend.delete()
     return redirect('legend_story')
 
 
+@login_required
 def livematch(request):
     match_football = Live_match.objects.all().order_by('-date')
     user = request.user
@@ -584,6 +614,7 @@ def livematch(request):
     return render(request, 'dashboard_home/livematch.html', context)
 
 
+@login_required
 def edit_score(request, id):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -603,11 +634,13 @@ def edit_score(request, id):
     return render(request, 'dashboard_home/edit_score.html', context)
 
 
+@login_required
 def suspend_match(request, id):
     suspend = Live_match.objects.filter(id=id).update(suspended=True)
     return redirect('livematch')
 
 
+@login_required
 def create_trophy(request):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -627,6 +660,7 @@ def create_trophy(request):
     return render(request, 'dashboard_home/create_trophy.html', context)
 
 
+@login_required
 def trophy(request):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -639,6 +673,7 @@ def trophy(request):
     return render(request, 'dashboard_home/trophy.html', context)
 
 
+@login_required
 def give_team_trophy(request, id):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
@@ -653,6 +688,7 @@ def give_team_trophy(request, id):
     return render(request, 'dashboard_home/give_team_trophy.html', context)
 
 
+@login_required
 def confirm_trophy_cup(request, id, team_id):
     trophy_type = get_object_or_404(Trophy, id=id)
     team_trophy = get_object_or_404(Team, id=team_id)
@@ -664,4 +700,3 @@ def confirm_trophy_cup(request, id, team_id):
     if not check_trophy.exists():
         trophy_team = Trophy_team.objects.create(trophy=trophy_type, team=team_trophy)
         return redirect('dashboard')
-
