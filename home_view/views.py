@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from authentication.forms import UserRegistrationForm
 from team.models import Team, Team_profile, Player, Player_profile, Trophy_team, Table_Ranking, Live_match
-
+from datetime import datetime
+now_time = datetime.now()
 
 # Create your views here.
 def create_account(request):
@@ -22,8 +23,10 @@ def create_account(request):
 
 def home(request):
     live_match = Live_match.objects.all().order_by('-id')
+    live_match_first = Live_match.objects.all().order_by('-id').first()
     context = {
-        'live_match': live_match
+        'live_match': live_match,
+        'live_match_first': live_match_first
     }
     return render(request, 'home_view/index.html', context)
 
@@ -94,3 +97,13 @@ def home_player_detail(request, id, player_id):
         'player_trophy_ex': player_trophy_ex
     }
     return render(request, 'home_view/home_player_detail.html', context)
+
+
+def home_upcoming_match(request):
+    upcoming_match = Live_match.objects.all().filter(date__gte=now_time)
+    upcoming_match_first = Live_match.objects.all().filter(date__gte=now_time).first()
+    context = {
+        'upcoming_match': upcoming_match,
+        'upcoming_match_first': upcoming_match_first
+    }
+    return render(request, 'home_view/home_upcoming_match.html', context)

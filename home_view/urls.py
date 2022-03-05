@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, standings, matchlive, upcoming, search, contact, create_account, club_team, home_team_detail, home_team_player, home_player_detail
+from .views import home, standings, matchlive, upcoming, search, contact, create_account, club_team, home_team_detail, home_team_player, home_player_detail,home_upcoming_match
 from django.contrib.auth import views as authViews
 
 name = 'home_view'
@@ -20,5 +20,7 @@ urlpatterns = [
     # team player
     path('club_team/<int:id>/home_team_player/', home_team_player, name='home_team_player'),
     # path for player detail
-    path('club_team/<int:id>/home_team_player/<player_id>', home_player_detail, name='home_player_detail')
+    path('club_team/<int:id>/home_team_player/<player_id>', home_player_detail, name='home_player_detail'),
+    # upcoming match
+    path('home_upcoming_match/', home_upcoming_match, name='home_upcoming_match')
 ]

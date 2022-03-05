@@ -161,134 +161,58 @@
                 <div class="col-md-6 col-sm-12 col-xs-12">
                     <h6>Next match</h6>
 
-<div class="main-next-match bg-cover">
-    <img src="{% static 'images/soccer/next-match-bg.jpg' %}" class="next-match-background-img" alt="next-image">
-    <div class="wrap">
-        <div class="place" >Estadio Olimpico Monumental</div>
-        <div class="date" >28 septemer 2016 / 8:30 PM</div>
-        <div class="teams-wrap" >
-                <a href="staff.html" class="team">
-                    <span>Team 1</span>
-                    <span><img src="{% static 'images/common/team-logo1.png' %}" alt="team-image"></span>
-                </a>
-                <div class="vs">
-                   vs
+                <div class="main-next-match bg-cover">
+                    <img src="{% static 'images/soccer/next-match-bg.jpg' %}" class="next-match-background-img" alt="next-image">
+                    <div class="wrap">
+                        <div class="place" >PRIMUS PREMIER LEAGUE</div>
+                        <div class="date" >{{ live_match_first.date }}</div>
+                        <div class="teams-wrap" >
+                                <a href="staff.html" class="team">
+                                    <span>{{ live_match_first.team1 }}</span>
+                                    <span><img src="{% static 'images/common/team-logo1.png' %}" alt="team-image"></span>
+                                </a>
+                                <div class="vs">
+                                   vs
+                                </div>
+                                <a href="staff.html" class="team1">
+                                    <span><img src="{% static 'images/common/team-logo2.png' %}" alt="team-image"></span>
+                                    <span>{{ live_match_first.team2 }}</span>
+                                </a>
+                        </div>
+                        <a href="{% url 'home_upcoming_match' %}" class="booking">UPCOMING MATCH</a>
+                    </div>
                 </div>
-                <a href="staff.html" class="team1">
-                    <span><img src="{% static 'images/common/team-logo2.png' %}" alt="team-image"></span>
-                    <span>Team2</span>
-                </a>
-        </div>
-        <a href="#" class="booking">UPCOMING MATCH</a>
-    </div>
-</div>
                 </div>
+
                 <div class="col-md-6 col-sm-12 col-xs-12">
                     <h6>Latest matches</h6>
+                        {% for live_match in live_match %}
+                        <div class="main-lates-matches">
+                            <a href="#" class="item">
+                                <span class="championship">National cup - quarterfinal</span>
+                                <span class="teams-wrap">
+                                        <span class="team">
+                                            <span>
+                                                <img src="{% static 'images/common/team-logo1.png' %}" alt="team-image">
+                                            </span>
+                                            <span>{{ live_match.team1 }}</span>
+                                        </span>
+                                        <span class="score">
+                                            <span>3:2</span>
 
-<div class="main-lates-matches">
-    <a href="#" class="item">
-        <span class="championship">National cup - quarterfinal</span>
-        <span class="teams-wrap">
-                <span class="team">
-                    <span>
-                        <img src="{% static 'images/common/team-logo1.png' %}" alt="team-image">
-                    </span>
-                    <span>Team 1</span>
-                </span>
-                <span class="score">
-                    <span>3:2</span>
+                                        </span>
+                                        <span class="team1">
+                                            <span>{{ team1.team2 }}</span>
+                                            <span><img src="{% static 'images/common/team-logo2.png' %}" alt="team-image"></span>
+                                        </span>
+                                </span>
+                                <span class="game-result">(5-4) penalties</span>
+                            </a>
 
-                </span>
-                <span class="team1">
-                    <span>Internacional</span>
-                    <span><img src="{% static 'images/common/team-logo2.png' %}" alt="team-image"></span>
-                </span>
-        </span>
-        <span class="game-result">(5-4) penalties</span>
-    </a>
-    <a href="#" class="item">
-        <span class="championship">National cup - quarterfinal</span>
-        <span class="teams-wrap">
-                <span class="team">
-                    <span>
-                        <img src="{% static 'images/common/team-logo3.png' %}" alt="team-image">
-                    </span>
-                    <span>Team 1</span>
-                </span>
-                <span class="score">
-                    <span>3:2</span>
-
-                </span>
-                <span class="team1">
-                    <span>Team 2</span>
-                    <span><img src="{% static 'images/common/team-logo4.png' %}" alt="team-image"></span>
-                </span>
-        </span>
-        <span class="game-result">(5-4) penalties</span>
-    </a>
-    <a href="#" class="item">
-        <span class="championship">National cup - quarterfinal</span>
-        <span class="teams-wrap">
-                <span class="team">
-                    <span>
-                        <img src="{% static 'images/common/team-logo5.png' %}" alt="team-image">
-                    </span>
-                    <span>Team 1</span>
-                </span>
-                <span class="score">
-                    <span>3:2</span>
-
-                </span>
-                <span class="team1">
-                    <span>Team 2</span>
-                    <span><img src="{% static 'images/common/team-logo1.png' %}" alt="team-image"></span>
-                </span>
-        </span>
-        <span class="game-result">(5-4) penalties</span>
-    </a>
-    <a href="#" class="item">
-        <span class="championship">National cup - quarterfinal</span>
-        <span class="teams-wrap">
-                <span class="team">
-                    <span>
-                        <img src="{% static 'images/common/team-logo2.png' %}" alt="team-image">
-                    </span>
-                    <span>Team 1</span>
-                </span>
-                <span class="score">
-                    <span>3:2</span>
-
-                </span>
-                <span class="team1">
-                    <span>Team 2</span>
-                    <span><img src="{% static 'images/common/team-logo3.png' %}" alt="team-image"></span>
-                </span>
-        </span>
-        <span class="game-result">(5-4) penalties</span>
-    </a>
-    <a href="#" class="item">
-        <span class="championship">National cup - quarterfinal</span>
-        <span class="teams-wrap">
-                <span class="team">
-                    <span>
-                        <img src="{% static 'images/common/team-logo4.png' %}" alt="team-image">
-                    </span>
-                    <span>Team 1</span>
-                </span>
-                <span class="score">
-                    <span>3:2</span>
-
-                </span>
-                <span class="team1">
-                    <span>Team 2</span>
-                    <span><img src="{% static 'images/common/team-logo5.png' %}" alt="team-image"></span>
-                </span>
-        </span>
-        <span class="game-result">(5-4) penalties</span>
-    </a>
-</div>
+                        </div>
+                        {% endfor %}
                 </div>
+
             </div>
         </div>
     </section>
