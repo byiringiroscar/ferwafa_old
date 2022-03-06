@@ -11,14 +11,10 @@
                     <ul class="tab-filters">
                         <li class="active"><a href="#all">Team</a></li>
                     </ul>
-                    <a href="" class="btn small club-top-btn">Players of This Team</a>
+
                 </div>
                 </div>
-                {% if team_prof.team_link is not None %}
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <a href="" class="btn small club-top-btn">Watch video</a>
-                </div>
-                {% endif %}
+
 
             </div>
         </div>
@@ -27,8 +23,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <div class="club-logo  wpb_animate_when_almost_visible wpb_zoomInLeft zoomInLeft wpb_start_animation animated">
+                <div class="">
                     <img class="img-responsive" src="{{ team.team_picture.url }}" alt="club logo"  style="width: 190px; height: 200px; border-radius: 40%; margin-top: 1cm;">
+
+                </div>
+                <div class="col-lg-12 col-sm-12">
+                    {% if team_prof.team_link is not None %}
+                    <a href="{{ team_prof.team_link }}" class="btn small club-top-btn" style="margin-right: 8cm; margin-top: 1cm; flex: auto;">Watch video</a>
+                {% endif %}
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
@@ -69,12 +71,13 @@
                         </div>
                     </div>
                     <div class="title">team stats</div>
+
                     <div class="circle-item">
-                        <div class="circle-bar" id="circle_3" data-percent="60"></div>
+                        <div class="circle-bar" id="circle_3" data-percent="{{ win_percent }}"></div>
                         <div class="text">WIN </div>
                     </div>
                     <div class="circle-item">
-                        <div class="circle-bar" id="circle_4" data-percent="87"></div>
+                        <div class="circle-bar" id="circle_4" data-percent="{{ loss_percent }}"></div>
                         <div class="text">LOSS </div>
                     </div>
                 </div>
@@ -102,8 +105,9 @@
                         <th>LOSS</th>
                         <th>PTS</th>
                     </tr>
+                    {% for table_ranking in table_ranking %}
                     <tr>
-                        {% for table_ranking in table_ranking %}
+
                         <td>
                             <span class="team"><img src="{{ table_ranking.team.team_picture.url }}" width="30" height="30" alt="team-logo"></span>
                             <span>{{ table_ranking.team.team_name }}</span>
@@ -113,8 +117,9 @@
                         <td>{{ table_ranking.draw }}</td>
                         <td>{{ table_ranking.loss }}</td>
                         <td><span>{{ table_ranking.team_points }}</span></td>
-                        {% endfor %}
+
                     </tr>
+                    {% endfor %}
                 </table>
 
             </div>

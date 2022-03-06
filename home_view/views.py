@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from authentication.forms import UserRegistrationForm
-from team.models import Team, Team_profile, Player, Player_profile, Trophy_team, Table_Ranking, Live_match
+from team.models import Team, Team_profile, Player, Player_profile, Trophy_team, Table_Ranking, Live_match, Ranking_Table
 from datetime import datetime
 now_time = datetime.now()
 
@@ -32,7 +32,13 @@ def home(request):
 
 
 def standings(request):
-    return render(request, 'home_view/standings.html')
+    standing_year = Ranking_Table.objects.all().order_by('-ranking_year')
+    ranking_table_year = Table_Ranking.objects.all()
+    context = {
+        'standing': standing_year,
+        'ranking_table_year': ranking_table_year
+    }
+    return render(request, 'home_view/standings.html', context)
 
 
 def matchlive(request):
@@ -62,12 +68,38 @@ def club_team(request):
 def home_team_detail(request, id):
     team_detail = get_object_or_404(Team, id=id)
     team_prof = get_object_or_404(Team_profile, team=team_detail)
-    table_ranking = Table_Ranking.objects.filter(team=team_detail).order_by('-ranking')
-    print("table-----------------", table_ranking)
+    table_ranking = Table_Ranking.objects.filter().order_by('-ranking')
+    table_rank_year = Ranking_Table.objects.filter(ranking_year=now_time.date())
+    table_ranking_stat = Table_Ranking.objects.filter(team=team_detail, ranking=table_rank_year).order_by('-ranking')
+    game_played = 0
+    win_percent = 0
+    loss_percent = 0
+    try:
+        Table_Ranking.objects.filter(team=team_detail, ranking=table_rank_year).first().exists()
+        game_played = table_ranking_stat.game_played
+        win = table_ranking_stat.win
+        print("win kdkmd --------", )
+        loss = table_ranking_stat.loss
+        win_percent = (win * 100) / game_played
+        print("win-------------------", win_percent)
+        loss_percent = (loss * 100) / game_played
+        context = {
+            'win_percent': win_percent,
+            'loss_percent': loss_percent
+        }
+    except :
+        win_percent = 0
+        loss_percent = 0
+        context = {
+            'win_percent': win_percent,
+            'loss_percent': loss_percent
+        }
     context = {
         'team': team_detail,
         'team_prof': team_prof,
-        'table_ranking': table_ranking
+        'table_ranking': table_ranking,
+        'win_percent': win_percent,
+        'loss_percent': loss_percent
     }
     return render(request, 'home_view/home_team_detail.html', context)
 

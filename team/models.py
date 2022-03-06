@@ -128,7 +128,7 @@ class Table_Ranking(models.Model):
 
     class Meta:
         verbose_name_plural = "Table_Ranking"
-        ordering = ['-id']
+        ordering = ['-team_points']
 
 
 # end team ranking
