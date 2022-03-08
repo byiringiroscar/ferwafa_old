@@ -173,7 +173,7 @@ class player_statistics_ranking(models.Model):
 
     class Meta:
         verbose_name_plural = "player_statistics_Ranking"
-        ordering = ['-id']
+
 
 
 # end goals and assist party

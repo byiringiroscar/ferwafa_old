@@ -31,7 +31,7 @@
                                 <div class="col-md-4">
                                     <div class="card-deck">
                                         <div class="card " >
-                                            <img class="card-img-top" src="{{ tea.team_picture.url }}" style="width: 190px; height: 200px; border-radius: 30%" alt="Card image cap" >
+                                            <a href="{% url 'home_team_detail' tea.id %}"><img class="card-img-top" src="{{ tea.team_picture.url }}" style="width: 190px; height: 200px; border-radius: 30%" alt="Card image cap" ></a>
                                             <div class="card-body" style="color:white;">
                                               <h5 class="card-title" style="color:white;">Club: {{ tea.team_name }}</h5>
                                             </div>

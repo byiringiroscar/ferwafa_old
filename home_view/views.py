@@ -124,13 +124,15 @@ def home_player_detail(request, id, player_id):
     player_profile = get_object_or_404(Player_profile, player=player)
     player_trophy = Trophy_team.objects.filter(team=team)
     player_trophy_ex = Trophy_team.objects.filter(team=team)
+    all_player_stat = player_statistics_ranking.objects.filter(player_statistics=player).order_by('-player_year_statistics__ranking_year')
 
     context = {
         'team': team,
         'player': player,
         'player_profile': player_profile,
         'player_trophy': player_trophy,
-        'player_trophy_ex': player_trophy_ex
+        'player_trophy_ex': player_trophy_ex,
+        'all_player_stat': all_player_stat
     }
     return render(request, 'home_view/home_player_detail.html', context)
 

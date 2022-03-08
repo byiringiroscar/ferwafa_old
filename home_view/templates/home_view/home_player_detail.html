@@ -29,7 +29,7 @@
                                 <div class="col-md-3 col-sm-3 col-xs-3">
                                     <div class="item">Team:</div>
                                 </div>
-                                <div class="col-md-9 col-sm-9 col-xs-9"><img src="{{ team.team_picture.url }}" alt="flag" style="width: 20px; height: 23px; border-radius: 50%;">  {{ team.team_name }}</div>
+                                <div class="col-md-9 col-sm-9 col-xs-9">  {{ team.team_name }}</div>
                                 <div class="col-md-3 col-sm-3 col-xs-3">
                                     <div class="item">Position:</div>
                                 </div>
@@ -39,6 +39,11 @@
                                     <div class="item">Age:</div>
                                 </div>
                                 <div class="col-md-9 col-sm-9 col-xs-9">{{ player_profile.player_age }}</div>
+                                    {% if player_profile.player_link is not None %}
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <a href="{{ player_profile.player_link }}"><p style="color:#deb607;"><b>Watch video</b></p></a>
+                                    </div>
+                                {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -49,29 +54,23 @@
                                     <th>Season</th>
                                     <th class="club">Club</th>
                                     <th>Games</th>
+                                    <th>Assist</th>
                                     <th>Goals</th>
                                 </tr>
+                                {% for all_player_stat in all_player_stat %}
                                 <tr>
-                                    <td>2016/2017</td>
-                                    <td class="club"><img src="{% static 'images/soccer/team-logo1.png' %}" width="30" height="30" alt="trophy"> Internacional</td>
-                                    <td>27</td>
-                                    <td><span>10</span></td>
+                                    <td>{{ all_player_stat.player_year_statistics.ranking_year.year }}</td>
+                                    <td class="club"><img src="{{ all_player_stat.player_team.team_picture.url }}" width="30" height="30" alt="trophy"> {{ all_player_stat.player_team.team_name }}</td>
+                                    <td>25</td>
+                                    <td>{{ all_player_stat.player_assist }}</td>
+                                    <td><span>{{ all_player_stat.player_goals }}</span></td>
                                 </tr>
-                                <tr>
-                                    <td>2016/2017</td>
-                                    <td class="club"><img src="{% static 'images/soccer/team-logo2.png' %}" width="30" height="30" alt="trophy"> Internacional</td>
-                                    <td>27</td>
-                                    <td><span>10</span></td>
-                                </tr>
+                                {% endfor %}
+
                             </table>
                         </div>
 
-                        {% if player_profile.player_link is not None %}
-                            <h6>About</h6>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <a href="{{ player_profile.player_link }}" class="btn small club-top-btn">Watch video</a>
-                            </div>
-                        {% endif %}
+
 
                         {% if player_trophy_ex %}
                         <h6>Trophies</h6>
