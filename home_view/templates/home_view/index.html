@@ -230,13 +230,13 @@
 <div class="single-player-stats players_statistic_slider">
     <ul class="player-filters" role="tablist">
         <li class="active">
-            <a href="#goalkeepers" role="tab" data-toggle="tab">
-                goalkeepers
+            <a href="#attacker" role="tab" data-toggle="tab">
+                attackers
             </a>
         </li>
         <li>
-            <a href="#defenders" role="tab" data-toggle="tab">
-                defenders
+            <a href="#assister" role="tab" data-toggle="tab">
+                midfield
             </a>
         </li>
 
@@ -244,24 +244,23 @@
     <div class="player-stat-slider tab-content">
         <div id="slider" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner tab-content" role="listbox">
-                <div class="item active tab-pane" id="goalkeepers">
+                <div class="item active tab-pane" id="attacker">
 
                     <div class="wrap">
                         <div class="stat">
                             <div class="top-info with_number">
-                                <div class="number">12</div>
-                                <a href="player-second-page.html" class="name">
-                                    HAYDEN FREEMAN
+                                <div class="number">{{ player_goals_slide.player_statistics.player_number }}</div>
+                                <a href="{% url 'home_player_detail' player_goals_slide.player_team.id player_goals_slide.player_statistics.id %}" class="name" style="text-transform: uppercase;">
+                                    {{ player_goals_slide.player_statistics.player_name }}
                                 </a>
                             </div>
-                            <div class="position">
-                                Goalkeeper
+                            <div class="position">{{ player_goals_slide.player_statistics.player_position }}
                             </div>
                             <div class="progress-wrap">
                                 <div class="progress-item">
                                     <div class="bar-label">
-                                        <div class="achievement">played</div>
-                                        <div class="score">23</div>
+                                        <div class="achievement">goals</div>
+                                        <div class="score">{{ player_goals_slide.player_goals }}</div>
                                     </div>
                                     <div class="progress-line">
                                         <div class="bar bar-1" ></div>
@@ -269,8 +268,8 @@
                                 </div>
                                 <div class="progress-item">
                                     <div class="bar-label">
-                                        <div class="achievement">saves</div>
-                                        <div class="score">23</div>
+                                        <div class="achievement">shot</div>
+                                        <div class="score">15</div>
                                     </div>
                                     <div class="progress-line">
                                         <div class="bar bar-2" ></div>
@@ -278,7 +277,7 @@
                                 </div>
                                 <div class="progress-item">
                                     <div class="bar-label">
-                                        <div class="achievement">missing</div>
+                                        <div class="achievement">threat</div>
                                         <div class="score">23</div>
                                     </div>
                                     <div class="progress-line">
@@ -288,19 +287,19 @@
                             </div>
                         </div>
                         <div class="image">
-                            <a href="player-second-page.html" title="player-image">
-                                <img src="{% static 'images/soccer/player-stat-slider-img.jpg' %}" alt="player-image">
+                            <a href="{% url 'home_player_detail' player_goals_slide.player_team.id player_goals_slide.player_statistics.id %}" title="player-image">
+                                <img src="{{ player_goals_slide.player_statistics.player_image.url }}" alt="player-image">
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="item tab-pane" id="defenders">
+                <div class="item tab-pane" id="assister">
                     <div class="wrap">
                         <div class="stat">
                             <div class="top-info with_number">
                                 <div class="number">1</div>
-                                <a href="player.html" class="name">
-                                    JORG BELAFFSOON
+                                <a href="{% url 'home_player_detail' player_assist_slide.player_team.id player_assist_slide.player_statistics.id %}" class="name" style="text-transform: uppercase;">
+                                    {{ player_assist_slide.player_statistics.player_name }}
                                 </a>
                             </div>
                             <div class="top-info">
@@ -308,13 +307,13 @@
                                 </a>
                             </div>
                             <div class="position">
-                                Defender
+                                {{ player_assist_slide.player_statistics.player_position }}
                             </div>
                             <div class="progress-wrap">
                                 <div class="progress-item">
                                     <div class="bar-label">
-                                        <div class="achievement">played</div>
-                                        <div class="score">23</div>
+                                        <div class="achievement">ASSIST</div>
+                                        <div class="score">{{ player_assist_slide.player_assist }}</div>
                                     </div>
                                     <div class="progress-line">
                                         <div class="bar bar-4" ></div>
@@ -322,8 +321,8 @@
                                 </div>
                                 <div class="progress-item">
                                     <div class="bar-label">
-                                        <div class="achievement">saves</div>
-                                        <div class="score">23</div>
+                                        <div class="achievement">goals</div>
+                                        <div class="score">{{ player_assist_slide.player_goals }}</div>
                                     </div>
                                     <div class="progress-line">
                                         <div class="bar bar-5" ></div>
@@ -331,8 +330,8 @@
                                 </div>
                                 <div class="progress-item">
                                     <div class="bar-label">
-                                        <div class="achievement">missing</div>
-                                        <div class="score">23</div>
+                                        <div class="achievement">shot</div>
+                                        <div class="score">21</div>
                                     </div>
                                     <div class="progress-line">
                                         <div class="bar bar-6" ></div>
@@ -341,8 +340,8 @@
                             </div>
                         </div>
                         <div class="image">
-                            <a href="player-second-page.html" title="player-image">
-                                <img src="{% static 'images/soccer/player-stat-slider-img.jpg' %}" alt="player-image">
+                            <a href="{% url 'home_player_detail' player_assist_slide.player_team.id player_assist_slide.player_statistics.id %}" title="player-image">
+                                <img src="{{ player_assist_slide.player_statistics.player_image.url }}" alt="player-image">
                             </a>
                         </div>
                     </div>
@@ -368,93 +367,39 @@
                 <div class="col-md-5">
                     <h4 class = "hockey-stats-h4">Best players</h4>
                     <div class="team-best-player">
-    <div class="">
-        <ul class="player-filters" role="tablist">
-            <li class="active">
-                <a href="#goals" role="tab" data-toggle="tab">goals</a>
-            </li>
-            <li>
-                <a href="#assist" role="tab" data-toggle="tab">assist</a>
-            </li>
-        </ul>
-    </div>
-    <div class="tab-content">
-        <div class="best-players-list tab-pane active" id="goals">
-            <a href="player-second-page.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player-second-page.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player-second-page.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-        </div>
-        <div class="best-players-list tab-pane" id="assist">
-            <a href="player.html" class="item">
-                <span class="number">1</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player-second-page.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player-second-page.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-            <a href="player.html" class="item">
-                <span class="number">9</span>
-                <span>Luis Hernandez</span>
-                <span class="achievement">14</span>
-            </a>
-        </div>
-    </div>
-</div>
+                <div class="">
+                    <ul class="player-filters" role="tablist">
+                        <li class="active">
+                            <a href="#goals" role="tab" data-toggle="tab">goals</a>
+                        </li>
+                        <li>
+                            <a href="#assist" role="tab" data-toggle="tab">assist</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="best-players-list tab-pane active" id="goals">
+                        {% for player_goals in player_goals %}
+                        <a href="{% url 'home_player_detail' player_goals.player_team.id player_goals.player_statistics.id %}" class="item">
+                            <span class="number">{{ player_goals.player_statistics.player_number }}</span>
+                            <span>{{ player_goals.player_statistics.player_name }}</span>
+                            <span class="achievement">{{ player_goals.player_goals }}</span>
+                        </a>
+                        {% endfor %}
+
+                    </div>
+                    <div class="best-players-list tab-pane" id="assist">
+                        {% for player_assist in player_assist %}
+                        <a href="{% url 'home_player_detail' player_assist.player_team.id player_assist.player_statistics.id %}" class="item">
+                            <span class="number">{{ player_assist.player_statistics.player_number }}</span>
+                            <span>{{ player_assist.player_statistics.player_name }}</span>
+                            <span class="achievement">{{ player_assist.player_assist }}</span>
+                        </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+                </div>
                 </div>
             </div>
         </div>

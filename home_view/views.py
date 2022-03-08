@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from authentication.forms import UserRegistrationForm
-from team.models import Team, Team_profile, Player, Player_profile, Trophy_team, Table_Ranking, Live_match, Ranking_Table
+from team.models import Team, Team_profile, Player, Player_profile, Trophy_team, Table_Ranking, Live_match, \
+    Ranking_Table, player_statistics_ranking
 from datetime import datetime
+
 now_time = datetime.now()
+
 
 # Create your views here.
 def create_account(request):
@@ -24,9 +27,21 @@ def create_account(request):
 def home(request):
     live_match = Live_match.objects.all().order_by('-id')
     live_match_first = Live_match.objects.all().order_by('-id').first()
+    latest_ranking_table = Ranking_Table.objects.all().order_by('-ranking_year')[0]
+    player_goals_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by('-player_goals')
+    player_assist_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
+        '-player_assist')
+    player_goals_stat_slide = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
+        '-player_goals').first()
+    player_assist_slide = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
+        '-player_assist').first()
     context = {
         'live_match': live_match,
-        'live_match_first': live_match_first
+        'live_match_first': live_match_first,
+        'player_goals': player_goals_stat,
+        'player_assist': player_assist_stat,
+        'player_goals_slide': player_goals_stat_slide,
+        'player_assist_slide': player_assist_slide
     }
     return render(request, 'home_view/index.html', context)
 
@@ -68,32 +83,21 @@ def club_team(request):
 def home_team_detail(request, id):
     team_detail = get_object_or_404(Team, id=id)
     team_prof = get_object_or_404(Team_profile, team=team_detail)
-    table_ranking = Table_Ranking.objects.filter().order_by('-ranking')
-    table_rank_year = Ranking_Table.objects.filter(ranking_year=now_time.date())
-    table_ranking_stat = Table_Ranking.objects.filter(team=team_detail, ranking=table_rank_year).order_by('-ranking')
-    game_played = 0
-    win_percent = 0
-    loss_percent = 0
-    try:
-        Table_Ranking.objects.filter(team=team_detail, ranking=table_rank_year).first().exists()
-        game_played = table_ranking_stat.game_played
-        win = table_ranking_stat.win
-        print("win kdkmd --------", )
-        loss = table_ranking_stat.loss
+    ranking_table_year_first = Ranking_Table.objects.all().order_by('-ranking_year')[0]
+    table_ranking = Table_Ranking.objects.filter(ranking=ranking_table_year_first)
+    table_check_win_loss = Table_Ranking.objects.filter(team=team_detail, ranking=ranking_table_year_first).exists()
+    print("is quwwwwwwwwwwwwwwww", table_check_win_loss)
+    if table_check_win_loss:
+        table_win_loss = get_object_or_404(Table_Ranking, team=team_detail, ranking=ranking_table_year_first)
+        win = table_win_loss.win
+        loss = table_win_loss.loss
+        game_played = table_win_loss.game_played
         win_percent = (win * 100) / game_played
-        print("win-------------------", win_percent)
         loss_percent = (loss * 100) / game_played
-        context = {
-            'win_percent': win_percent,
-            'loss_percent': loss_percent
-        }
-    except :
-        win_percent = 0
-        loss_percent = 0
-        context = {
-            'win_percent': win_percent,
-            'loss_percent': loss_percent
-        }
+    elif not table_check_win_loss:
+        win_percent = 1
+        loss_percent = 1
+
     context = {
         'team': team_detail,
         'team_prof': team_prof,

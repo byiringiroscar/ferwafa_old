@@ -103,7 +103,7 @@ class Ranking_Table(models.Model):
 
     class Meta:
         verbose_name_plural = "Ranking_year"
-        ordering = ['-id']
+        ordering = ['-ranking_year']
 
 
 class Table_Ranking(models.Model):
