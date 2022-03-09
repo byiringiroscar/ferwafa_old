@@ -3,9 +3,9 @@ from authentication.models import User_profile
 from authentication.forms import ProfileForm, MainProfileForm
 from team.forms import TeamForm, Team_Profile_Form, PlayerForm, PlayerProfileForm, RankingTableForm, \
     TableRankingStandingForm, PlayerStatisticsRankingForm, Legend_story_Form, LiveMatchForm, EditScoreForm, \
-    CreateTrophyForm
+    CreateTrophyForm, ClubManagerForm
 from team.models import Team, Team_profile, Player, Player_profile, Ranking_Table, Table_Ranking, \
-    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team
+    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team, Club_managers
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -700,3 +700,26 @@ def confirm_trophy_cup(request, id, team_id):
     if not check_trophy.exists():
         trophy_team = Trophy_team.objects.create(trophy=trophy_type, team=team_trophy)
         return redirect('dashboard')
+
+
+@login_required
+def add_manager(request):
+    user = request.user
+    user_profile = User_profile.objects.get(user=user)
+    all_coaches = Club_managers.objects.all()
+    form = ClubManagerForm()
+    if request.method == 'POST':
+        form = ClubManagerForm(request.POST or None, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('add_manager')
+    else:
+        form = ClubManagerForm()
+
+    context = {
+        'user': user,
+        'profile': user_profile,
+        'form': form,
+        'manager': all_coaches
+    }
+    return render(request, 'dashboard_home/add_manager.html', context)

@@ -1,10 +1,9 @@
 from django import forms
 from team.models import Team, Team_profile, Player, Player_profile, Ranking_Table, Table_Ranking, \
-    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team
+    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team, Club_managers
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 import datetime
-
 
 now = timezone.now()
 from ckeditor.widgets import CKEditorWidget
@@ -211,3 +210,31 @@ class CreateTrophyForm(forms.ModelForm):
     class Meta:
         model = Trophy
         fields = ['trophy_name', 'trophy_year']
+
+
+class ClubManagerForm(forms.ModelForm):
+    formation = (
+        ('4-3-3', '4-3-3'),
+        ('4-2-3-1', '4-2-3-1'),
+        ('4-2-2-2', '4-2-2-2'),
+        ('4-4-2', '4-4-2'),
+        ('3-4-3', '3-4-3'),
+        ('3-4-2-1', '3-4-2-1'),
+        ('3-5-2', '3-5-2'),
+    )
+    manager_name = forms.CharField(max_length=30, label='Coach Name', required=True)
+    manager_image = forms.ImageField(label='Manager picture')
+    managers_formation = forms.ChoiceField(label='Manager formation', choices=formation, required=True)
+    managers_birth_date = forms.DateField(
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
+        ),
+        label='Manager Date of Birth',
+        required=True
+    )
+    manager_country = forms.CharField(max_length=30, label='Manager country', required=True)
+    manager_link = forms.URLField(label='Manager Link', required=False)
+
+    class Meta:
+        model = Club_managers
+        fields = ['manager_name', 'manager_image', 'managers_formation', 'managers_birth_date', 'manager_country', 'manager_link']

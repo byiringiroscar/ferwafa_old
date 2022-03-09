@@ -4,6 +4,7 @@ from authentication.forms import UserRegistrationForm
 from team.models import Team, Team_profile, Player, Player_profile, Trophy_team, Table_Ranking, Live_match, \
     Ranking_Table, player_statistics_ranking
 from datetime import datetime
+from team.models import Club_managers
 
 now_time = datetime.now()
 
@@ -28,20 +29,26 @@ def home(request):
     live_match = Live_match.objects.all().order_by('-id')
     live_match_first = Live_match.objects.all().order_by('-id').first()
     latest_ranking_table = Ranking_Table.objects.all().order_by('-ranking_year')[0]
-    player_goals_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by('-player_goals')
+    player_goals_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
+        '-player_goals')
     player_assist_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
         '-player_assist')
-    player_goals_stat_slide = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
+    player_goals_stat_slide = player_statistics_ranking.objects.filter(
+        player_year_statistics=latest_ranking_table).order_by(
         '-player_goals').first()
-    player_assist_slide = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
+    player_assist_slide = player_statistics_ranking.objects.filter(
+        player_year_statistics=latest_ranking_table).order_by(
         '-player_assist').first()
+
+    coach = Club_managers.objects.all()
     context = {
         'live_match': live_match,
         'live_match_first': live_match_first,
         'player_goals': player_goals_stat,
         'player_assist': player_assist_stat,
         'player_goals_slide': player_goals_stat_slide,
-        'player_assist_slide': player_assist_slide
+        'player_assist_slide': player_assist_slide,
+        'coach': coach
     }
     return render(request, 'home_view/index.html', context)
 
@@ -81,12 +88,12 @@ def club_team(request):
 
 
 def home_team_detail(request, id):
+    now_time_slide = datetime.today().date()
     team_detail = get_object_or_404(Team, id=id)
     team_prof = get_object_or_404(Team_profile, team=team_detail)
     ranking_table_year_first = Ranking_Table.objects.all().order_by('-ranking_year')[0]
     table_ranking = Table_Ranking.objects.filter(ranking=ranking_table_year_first)
     table_check_win_loss = Table_Ranking.objects.filter(team=team_detail, ranking=ranking_table_year_first).exists()
-    print("is quwwwwwwwwwwwwwwww", table_check_win_loss)
     if table_check_win_loss:
         table_win_loss = get_object_or_404(Table_Ranking, team=team_detail, ranking=ranking_table_year_first)
         win = table_win_loss.win
@@ -103,7 +110,8 @@ def home_team_detail(request, id):
         'team_prof': team_prof,
         'table_ranking': table_ranking,
         'win_percent': win_percent,
-        'loss_percent': loss_percent
+        'loss_percent': loss_percent,
+        'now_time': now_time_slide
     }
     return render(request, 'home_view/home_team_detail.html', context)
 
@@ -124,7 +132,8 @@ def home_player_detail(request, id, player_id):
     player_profile = get_object_or_404(Player_profile, player=player)
     player_trophy = Trophy_team.objects.filter(team=team)
     player_trophy_ex = Trophy_team.objects.filter(team=team)
-    all_player_stat = player_statistics_ranking.objects.filter(player_statistics=player).order_by('-player_year_statistics__ranking_year')
+    all_player_stat = player_statistics_ranking.objects.filter(player_statistics=player).order_by(
+        '-player_year_statistics__ranking_year')
 
     context = {
         'team': team,
@@ -132,7 +141,8 @@ def home_player_detail(request, id, player_id):
         'player_profile': player_profile,
         'player_trophy': player_trophy,
         'player_trophy_ex': player_trophy_ex,
-        'all_player_stat': all_player_stat
+        'all_player_stat': all_player_stat,
+
     }
     return render(request, 'home_view/home_player_detail.html', context)
 
@@ -145,3 +155,11 @@ def home_upcoming_match(request):
         'upcoming_match_first': upcoming_match_first
     }
     return render(request, 'home_view/home_upcoming_match.html', context)
+
+
+def home_manager_detail(request, id):
+    manager_detail = get_object_or_404(Club_managers, id=id)
+    context = {
+        'coach': manager_detail
+    }
+    return render(request, 'home_view/home_manager_detail.html', context)

@@ -224,7 +224,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h4 class="hockey-stats-h4">Players stats</h4>
+                    <h4 class="hockey-stats-h4">best player statistic</h4>
 
 
 <div class="single-player-stats players_statistic_slider">
@@ -469,92 +469,48 @@
         <div class="tab-pane active" id="managers" role="tabpanel">
             <div id="managers_carousel" class="carousel slide main-stuff-slider" data-ride="carousel" >
                 <div class="carousel-inner" role="listbox" >
-                    <div class="item active">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="staff-item">
-                                        <a href="staff.html">
-                                            <span class="info">
-                                                <span class="name">Lucas<br>Marshman</span>
-                                                <span class="position">Left Forward</span>
-                                                <span class="number">14</span>
-                                            </span>
-                                            <img src="{% static 'images/soccer/stuff-person.jpg' %}"  alt="person-slider">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="staff-item">
-                                        <a href="staff.html">
-                                            <span class="info">
-                                                <span class="name">Lucas<br>Marshman</span>
-                                                <span class="position">Left Midfielder</span>
-                                                <span class="number">8</span>
-                                            </span>
-                                            <img src="{% static 'images/soccer/player-2.jpg' %}"  alt="person-slider">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 ">
-                                    <div class="staff-item">
-                                        <a href="staff.html">
-                                            <span class="info">
-                                                <span class="name">Lucas<br>Marshman</span>
-                                                <span class="position">Central Attacking Midfielder</span>
-                                                <span class="number">7</span>
-                                            </span>
-                                            <img src="{% static 'images/soccer/player-3.jpg' %}"  alt="person-slider">
-                                        </a>
-                                    </div>
-                                </div>
 
+                        <div class="item active">
+                            <div class="container">
+                                <div class="row">
+                                    {% for coach in coach|slice:":3" %}
+                                    <div class="col-md-4">
+                                        <div class="staff-item">
+                                            <a href="{% url 'home_manager_detail' coach.id %}">
+                                                <span class="info">
+                                                    <span class="name">{{ coach.manager_name }}<br>{{ coach.manager_country }}</span>
+                                                    <span class="position">Manager</span>
+                                                </span>
+                                                <img src="{{ coach.manager_image.url }}"  alt="person-slider">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="staff-item">
-                                        <a href="staff.html">
-                                            <span class="info">
-                                                <span class="name">Lucas<br>Marshman</span>
-                                                <span class="position">Left Forward</span>
-                                                <span class="number">14</span>
-                                            </span>
-                                            <img src="{% static 'images/soccer/player-3.jpg' %}"  alt="person-slider">
-                                        </a>
+                        <div class="item">
+                            <div class="container">
+                                <div class="row">
+                                    {% for coach in coach|slice:"3:" %}
+                                    <div class="col-md-4">
+                                        <div class="staff-item">
+                                            <a href="{% url 'home_manager_detail' coach.id %}">
+                                                <span class="info">
+                                                    <span class="name">{{ coach.manager_name }}<br>{{ coach.manager_country }}</span>
+                                                    <span class="position">Manager</span>
+                                                </span>
+                                                <img src="{{ coach.manager_image.url }}"  alt="person-slider">
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="staff-item">
-                                        <a href="staff.html">
-                                            <span class="info">
-                                                <span class="name">Lucas<br>Marshman</span>
-                                                <span class="position">Left Midfielder</span>
-                                                <span class="number">8</span>
-                                            </span>
-                                            <img src="{% static 'images/soccer/player-2.jpg' %}"  alt="person-slider">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 ">
-                                    <div class="staff-item">
-                                        <a href="staff.html">
-                                            <span class="info">
-                                                <span class="name">Lucas<br>Marshman</span>
-                                                <span class="position">Central Attacking Midfielder</span>
-                                                <span class="number">7</span>
-                                            </span>
-                                            <img src="{% static 'images/soccer/stuff-person.jpg' %}"  alt="person-slider">
-                                        </a>
-                                    </div>
-                                </div>
+                                    {% endfor %}
 
+                                </div>
                             </div>
                         </div>
-                    </div>
+
                     <!-- Controls -->
                     <a class="nav-arrow left-arrow" href="#managers_carousel" role="button" data-slide="prev">
                         <i class="fa fa-angle-left" aria-hidden="true"></i>

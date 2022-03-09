@@ -46,9 +46,6 @@
                     {% if team_prof.team_location is not None %}
                     <div class="item"><span>Location:</span> {{ team_prof.team_location }}</div>
                     {% endif %}
-                    {% if team_prof.team_link is not None %}
-                    <a href="{{ team_prof.team_link }}" style="margin-bottom: 1cm;"><p style="color: #e8c517; "><b>Watch Team video</b></p></a>
-                    {% endif %}
                     <a href="{% url 'home_team_player' team.id %}" class="btn btn-sm btn-outline-secondary" style="margin-top: 1cm;">Players of This Team</a>
                 </div>
 
@@ -89,6 +86,48 @@
 </div>
         </div>
     </section>
+    <!--MAIN BREAKING NEWS BEGIN-->
+    {% if team_prof.team_link is not None %}
+    <div class="main-breaking-news">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-3 col-xs-12">
+                <div class="break-title"><span>Watch Videos</span></div>
+            </div>
+            <div class="col-md-10 col-sm-9 col-xs-12">
+                <div id="main-breaking-list" class="carousel slide main-breaking-list" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <a href="{{ team_prof.team_link }}">
+                                <span class="date">{{ now_time }} <span>/</span></span>
+
+                                <span class="news"><a href="{{ team_prof.team_link }}"><img src="{% static 'images/common/news-youtube-icon.png' %}" alt="news-youtube"></a>  OFFICIAL YOUTUBE CHANNEL</span>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="{{ team_prof.team_link }}">
+                                <span class="date">{{ now_time }} <span>/</span></span>
+                                <span class="news"><a href="{{ team_prof.team_link }}"><img src="{% static 'images/common/news-youtube-icon.png' %}" alt="news-youtube"></a>  OFFICIAL YOUTUBE CHANNEL</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="arrow-wrap">
+                        <!-- Controls -->
+                        <a class="nav-arrow left-arrow" href="#main-breaking-list" role="button" data-slide="prev">
+                            <i class="fa fa-caret-left" aria-hidden="true"></i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="nav-arrow right-arrow" href="#main-breaking-list" role="button" data-slide="next">
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endif %}
 {#    section for standing and table#}
     <section class="club-main-stat">
         <div class="container">

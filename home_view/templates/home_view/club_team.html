@@ -19,42 +19,22 @@
         </div>
     </div>
 
-    <div class="tab-content">
-        <div class="tab-pane active" role="tabpanel">
-            <div id="managers_carousel" class="carousel slide main-stuff-slider" data-ride="carousel" >
-                <div class="carousel-inner" role="listbox" >
-
-                    <div class="item active">
-                        <div class="container">
-                            <div class="row">
-                                {% for tea in team %}
-                                <div class="col-md-4">
-                                    <div class="card-deck">
-                                        <div class="card " >
-                                            <a href="{% url 'home_team_detail' tea.id %}"><img class="card-img-top" src="{{ tea.team_picture.url }}" style="width: 190px; height: 200px; border-radius: 30%" alt="Card image cap" ></a>
-                                            <div class="card-body" style="color:white;">
-                                              <h5 class="card-title" style="color:white;">Club: {{ tea.team_name }}</h5>
-                                            </div>
-                                            <div class="card-footer" style="color:white;">
-                                              <small class="text-muted" style="color:white;">Owner: {{ tea.team_president }}</small>
-                                            </div>
-                                          </div>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary" ><a href="{% url 'home_team_detail' tea.id %}" style="color: black"><b>View</b></a></button>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="esport_championship_participants">
+    <div class="container">
+        <div class="row no-guters">
+            {% for team in team %}
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <a href="{% url 'home_team_detail' team.id %}">
+                    <img src="{% static 'images/soccer/arena-img.jpg' %}" class="background-team" alt="background">
+                    <img src="{{ team.team_picture.url }}" alt="team-logo" style="height: 210px; width: 250px; border-radius: 60%;">
+                    <span><p style="font-size: 14px"><b>{{ team.team_name }} FC</b></p></span>
+                </a>
             </div>
-        </div>
+            {% endfor %}
 
+        </div>
     </div>
+</div>
 
 </section>
     <div class="call-to-action">

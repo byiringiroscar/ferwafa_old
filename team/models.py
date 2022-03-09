@@ -175,7 +175,6 @@ class player_statistics_ranking(models.Model):
         verbose_name_plural = "player_statistics_Ranking"
 
 
-
 # end goals and assist party
 
 # live match
@@ -211,3 +210,37 @@ class Legend_story(models.Model):
     class Meta:
         verbose_name_plural = "Legend_story"
         ordering = ['-id']
+
+
+class Club_managers(models.Model):
+    formation = [
+        ('4-3-3', '4-3-3'),
+        ('4-2-3-1', '4-2-3-1'),
+        ('4-2-2-2', '4-2-2-2'),
+        ('4-4-2', '4-4-2'),
+        ('3-4-3', '3-4-3'),
+        ('3-4-2-1', '3-4-2-1'),
+        ('3-5-2', '3-5-2'),
+
+    ]
+    manager_name = models.CharField(max_length=50)
+    manager_image = models.ImageField(upload_to='images/')
+    managers_formation = models.CharField(max_length=20, choices=formation)
+    managers_birth_date = models.DateField(default=today_year_exact)
+    manager_age = models.IntegerField()
+    manager_country = models.CharField(max_length=30)
+    manager_link = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.manager_name} -- {self.managers_formation}'
+
+    class Meta:
+        verbose_name_plural = "Club Manager"
+        ordering = ['-id']
+
+    def save(self, *args, **kwargs):
+        today_year = datetime.date.today().year
+        managers_birth_year = self.managers_birth_date.year
+        age_manager = today_year - managers_birth_year
+        self.manager_age = age_manager
+        super(Club_managers, self).save(*args, **kwargs)

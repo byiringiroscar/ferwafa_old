@@ -14,7 +14,7 @@
 
 <div class="player-photo">
     <div class="number">{{ player.player_number }}</div>
-    <img class="img-responsive" src="{{ player.player_image.url }}" alt="player" style="height: 680px; width: 600px;">
+    <img class="img-responsive" src="{{ player.player_image.url }}" alt="player" style="height: 580px; width: 500px;">
 </div>
                 </div>
                 <div class="col-md-6">
@@ -34,7 +34,7 @@
                                     <div class="item">Position:</div>
                                 </div>
                                 <div class="col-md-9 col-sm-9 col-xs-9">{{ player.player_position }}</div>
-                                {% if player_profile.player_age is not None and player_profile.player_age != 0 %}
+                                {% if not player_profile.player_age is not None and player_profile.player_age != 0 %}
                                 <div class="col-md-3 col-sm-3 col-xs-3">
                                     <div class="item">Age:</div>
                                 </div>
