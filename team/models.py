@@ -51,7 +51,11 @@ class Player(models.Model):
         ('left_winger', 'left_winger'),
         ('right_winger', 'right_winger'),
         ('fullback', 'fullback'),
+        ('left-fullback', 'left-fullback'),
+        ('right-fullback', 'right-fullback'),
         ('wingback', 'wingback'),
+        ('left-wingback', 'left-wingback'),
+        ('right-wingback', 'right-wingback'),
         ('centre_back', 'centre_back'),
         ('attacking_midfielder', 'attacking_midfielder'),
         ('defensive_midfielder', 'defensive_midfielder'),
@@ -167,6 +171,10 @@ class player_statistics_ranking(models.Model):
     player_team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True)
     player_goals = models.PositiveIntegerField(default=0)
     player_assist = models.PositiveIntegerField(default=0)
+    player_shot = models.PositiveIntegerField(default=0)
+    player_clean_shit = models.PositiveIntegerField(default=0)
+    player_tackle = models.PositiveIntegerField(default=0)
+    player_game_played = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f'{self.player_statistics.player_name}--Goals---{self.player_goals}--assist-----{self.player_assist}--year-----{self.player_year_statistics.ranking_year} '
@@ -199,9 +207,9 @@ class Live_match(models.Model):
 class Legend_story(models.Model):
     legend_name = models.CharField(max_length=50)
     legend_short_story = models.TextField()
-    legend_roles = models.CharField(max_length=50)
-    legend_inspiring = models.CharField(max_length=100)
-    legend_quotes = models.CharField(max_length=50)
+    legend_roles = models.CharField(max_length=250)
+    legend_inspiring = models.CharField(max_length=250)
+    legend_quotes = models.CharField(max_length=250)
     legend_image = models.ImageField(upload_to='images/', default='coach.png')
 
     def __str__(self):

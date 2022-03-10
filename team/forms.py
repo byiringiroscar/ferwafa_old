@@ -107,12 +107,16 @@ class TableRankingStandingForm(forms.ModelForm):
 
 
 class PlayerStatisticsRankingForm(forms.ModelForm):
-    player_goals = forms.IntegerField(label='Player Goal', required=True)
-    player_assist = forms.IntegerField(label='Player Assist', required=True)
+    player_goals = forms.IntegerField(label='Player Goal', required=False, initial=0)
+    player_assist = forms.IntegerField(label='Player Assist', required=False, initial=0)
+    player_shot = forms.IntegerField(label='Player Shots', required=False, initial=0)
+    player_clean_shit = forms.IntegerField(label='Player Cleanshit', required=False, initial=0)
+    player_tackle = forms.IntegerField(label='Player Tackle', required=False, initial=0)
+    player_game_played = forms.IntegerField(label='Player game played', required=False, initial=0)
 
     class Meta:
         model = player_statistics_ranking
-        fields = ['player_goals', 'player_assist']
+        fields = ['player_goals', 'player_assist', 'player_shot', 'player_clean_shit', 'player_tackle', 'player_game_played']
 
     def clean_player_goals(self):
         player_goals = self.cleaned_data['player_goals']
@@ -125,6 +129,7 @@ class PlayerStatisticsRankingForm(forms.ModelForm):
         if player_assist < 0:
             raise ValidationError("Assist must be equal to 0 or greater 0")
         return player_assist
+
 
 
 class Legend_story_Form(forms.ModelForm):

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from authentication.forms import UserRegistrationForm
 from team.models import Team, Team_profile, Player, Player_profile, Trophy_team, Table_Ranking, Live_match, \
-    Ranking_Table, player_statistics_ranking
+    Ranking_Table, player_statistics_ranking, Legend_story
 from datetime import datetime
 from team.models import Club_managers
 
@@ -33,21 +33,30 @@ def home(request):
         '-player_goals')
     player_assist_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
         '-player_assist')
+    player_goalkeeper_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
+        '-player_clean_shit')
     player_goals_stat_slide = player_statistics_ranking.objects.filter(
         player_year_statistics=latest_ranking_table).order_by(
         '-player_goals').first()
     player_assist_slide = player_statistics_ranking.objects.filter(
         player_year_statistics=latest_ranking_table).order_by(
         '-player_assist').first()
+    player_clean_sheet_slide = player_statistics_ranking.objects.filter(
+        player_year_statistics=latest_ranking_table).order_by(
+        '-player_clean_shit').first()
 
     coach = Club_managers.objects.all()
+    legend_story = Legend_story.objects.all().first()
     context = {
         'live_match': live_match,
         'live_match_first': live_match_first,
         'player_goals': player_goals_stat,
         'player_assist': player_assist_stat,
+        'player_clean_sheet': player_goalkeeper_stat,
         'player_goals_slide': player_goals_stat_slide,
         'player_assist_slide': player_assist_slide,
+        'player_clean_sheet_slide': player_clean_sheet_slide,
+        'legend_story': legend_story,
         'coach': coach
     }
     return render(request, 'home_view/index.html', context)

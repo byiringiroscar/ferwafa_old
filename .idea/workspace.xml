@@ -4,17 +4,13 @@
     <list default="true" id="41ad90c2-acbf-40f9-8af3-7569a91a2c15" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home_view/templates/home_view/club_team.html" beforeDir="false" afterPath="$PROJECT_DIR$/home_view/templates/home_view/club_team.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home_view/templates/home_view/home_player_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/home_view/templates/home_view/home_player_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home_view/templates/home_view/home_team_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/home_view/templates/home_view/home_team_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home_view/templates/home_view/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/home_view/templates/home_view/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home_view/templates/home_view/matchlive.html" beforeDir="false" afterPath="$PROJECT_DIR$/home_view/templates/home_view/matchlive.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home_view/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/home_view/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home_view/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home_view/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/team/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/team/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/team/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/team/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/team/templates/dashboard_home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/dashboard_home/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/team/templates/dashboard_home/player_rank_points.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/dashboard_home/player_rank_points.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/team/templates/dashboard_home/player_table_points.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/dashboard_home/player_table_points.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/team/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/base.html" afterDir="false" />
     </list>
@@ -46,10 +42,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/images/common" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/images/soccer" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\Projects\Django\ferwafa_scout_rwanda\ferwafa\static\images\soccer" />
       <recent name="G:\Projects\Django\ferwafa_scout_rwanda\ferwafa\static\images\common" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -93,7 +90,9 @@
       <workItem from="1646376563776" duration="7483000" />
       <workItem from="1646502491665" duration="9931000" />
       <workItem from="1646554939809" duration="32257000" />
-      <workItem from="1646801302454" duration="16000000" />
+      <workItem from="1646801302454" duration="16956000" />
+      <workItem from="1646835391322" duration="530000" />
+      <workItem from="1646892838671" duration="9212000" />
     </task>
     <servers />
   </component>

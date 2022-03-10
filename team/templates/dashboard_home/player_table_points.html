@@ -2,7 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="main-panel">
+    <div class="main-panel" style="height: 450px; overflow-y: scroll">
         <div class="content-wrapper">
           <div class="page-header">
             <h3 class="page-title">
@@ -40,6 +40,18 @@
                             Goals
                           </th>
                             <th>
+                            Shots
+                          </th>
+                            <th>
+                            Clean shit
+                          </th>
+                            <th>
+                            Tackle
+                          </th>
+                            <th>
+                                Game played
+                            </th>
+                            <th>
                             Edit
                           </th>
                         </tr>
@@ -61,6 +73,18 @@
                           </td>
                           <td>
                             {{ table_player_ranks.player_goals }}
+                          </td>
+                            <td>
+                            {{ table_player_ranks.player_shot }}
+                          </td>
+                            <td>
+                            {{ table_player_ranks.player_clean_shit }}
+                          </td>
+                            <td>
+                            {{ table_player_ranks.player_tackle }}
+                          </td>
+                            <td>
+                            {{ table_player_ranks.player_game_played }}
                           </td>
                             <td>
                                 <a href="{% url 'edit_table_player_points' table_player_ranks.id %}"><button class="btn btn-outline-primary">Edit</button></a>

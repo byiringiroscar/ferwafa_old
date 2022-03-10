@@ -239,6 +239,11 @@
                 midfield
             </a>
         </li>
+        <li>
+            <a href="#goalkeeper" role="tab" data-toggle="tab">
+                goalkeeper
+            </a>
+        </li>
 
     </ul>
     <div class="player-stat-slider tab-content">
@@ -346,6 +351,59 @@
                         </div>
                     </div>
                 </div>
+                <div class="item tab-pane" id="goalkeeper">
+                    <div class="wrap">
+                        <div class="stat">
+                            <div class="top-info with_number">
+                                <div class="number">1</div>
+                                <a href="{% url 'home_player_detail' player_clean_sheet_slide.player_team.id player_assist_slide.player_statistics.id %}" class="name" style="text-transform: uppercase;">
+                                    {{ player_clean_sheet_slide.player_statistics.player_name }}
+                                </a>
+                            </div>
+                            <div class="top-info">
+                                <a href="player-second-page.html" class="name">
+                                </a>
+                            </div>
+                            <div class="position">
+                                {{ player_clean_sheet_slide.player_statistics.player_position }}
+                            </div>
+                            <div class="progress-wrap">
+                                <div class="progress-item">
+                                    <div class="bar-label">
+                                        <div class="achievement">CLEAN SHEET</div>
+                                        <div class="score">{{ player_clean_sheet_slide.player_clean_shit }}</div>
+                                    </div>
+                                    <div class="progress-line">
+                                        <div class="bar bar-4" ></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="bar-label">
+                                        <div class="achievement">GAME PLAYED</div>
+                                        <div class="score">{{ player_clean_sheet_slide.player_game_played }}</div>
+                                    </div>
+                                    <div class="progress-line">
+                                        <div class="bar bar-1" ></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="bar-label">
+                                        <div class="achievement">conceded</div>
+                                        <div class="score">7</div>
+                                    </div>
+                                    <div class="progress-line">
+                                        <div class="bar bar-5" ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image">
+                            <a href="{% url 'home_player_detail' player_clean_sheet_slide.player_team.id player_clean_sheet_slide.player_statistics.id %}" title="player-image">
+                                <img src="{{ player_clean_sheet_slide.player_statistics.player_image.url }}" alt="player-image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
 
                 <div class="arrow-wrap">
@@ -375,26 +433,45 @@
                         <li>
                             <a href="#assist" role="tab" data-toggle="tab">assist</a>
                         </li>
+                        <li>
+                            <a href="#goalkeeper_all" role="tab" data-toggle="tab">goalkeeper</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="tab-content">
-                    <div class="best-players-list tab-pane active" id="goals">
+                    <div class="best-players-list tab-pane active" id="goals" style="height: 350px; overflow-y: scroll">
                         {% for player_goals in player_goals %}
+                            {% if not player_goals.player_goals == 0 %}
                         <a href="{% url 'home_player_detail' player_goals.player_team.id player_goals.player_statistics.id %}" class="item">
                             <span class="number">{{ player_goals.player_statistics.player_number }}</span>
                             <span>{{ player_goals.player_statistics.player_name }}</span>
                             <span class="achievement">{{ player_goals.player_goals }}</span>
                         </a>
+                            {% endif %}
                         {% endfor %}
 
                     </div>
-                    <div class="best-players-list tab-pane" id="assist">
+                    <div class="best-players-list tab-pane" id="assist" style="height: 350px; overflow-y: scroll">
                         {% for player_assist in player_assist %}
+                            {% if not player_assist.player_assist == 0 %}
                         <a href="{% url 'home_player_detail' player_assist.player_team.id player_assist.player_statistics.id %}" class="item">
                             <span class="number">{{ player_assist.player_statistics.player_number }}</span>
                             <span>{{ player_assist.player_statistics.player_name }}</span>
                             <span class="achievement">{{ player_assist.player_assist }}</span>
                         </a>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                    <div class="best-players-list tab-pane" id="goalkeeper_all" style="height: 350px; overflow-y: scroll">
+                        {% for player_clean_sheet in player_clean_sheet %}
+                            {% if not player_clean_sheet.player_clean_shit == 0 %}
+                        <a href="{% url 'home_player_detail' player_clean_sheet.player_team.id player_clean_sheet.player_statistics.id %}" class="item">
+                            <span class="number">{{ player_clean_sheet.player_statistics.player_number }}</span>
+                            <span>{{ player_clean_sheet.player_statistics.player_name }}</span>
+                            <span class="achievement">{{ player_clean_sheet.player_clean_shit }}</span>
+                        </a>
+                            {% endif %}
                         {% endfor %}
 
                     </div>
@@ -412,27 +489,26 @@
         <div class="row">
             <div class="col-md-7">
                 <h4>success story <br>began here</h4>
-                <p>Pabst irony tattooed, synth sriracha selvage pok pok. Wayfarers kinfolk sartorial, helvetica you probably haven't heard of them tumeric venmo deep mixtape semiotics brunch. </p>
+                <p> {{ legend_story.legend_short_story }}. </p>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="icon"><img src="{% static 'images/common/success-icon.png' %}" alt="succes-icon"></div>
-                        <div class="title">Legendary</div>
-                        <p>Next level paleo taxidermy, bespoke messenger bag leggings occupy food truck. </p>
+                        <div class="title">Legendary roles</div>
+                        <p>{{ legend_story.legend_roles }} </p>
                     </div>
                     <div class="col-md-6">
                         <div class="icon"><img src="{% static 'images/common/success-icon1.png' %}" alt="succes-icon"></div>
-                        <div class="title">Legendary</div>
-                        <p>Wayfarers kinfolk sartorial, helvetica you probably haven't heard of them tumeric venmo deep v mixtape semiotics brunch. </p>
+                        <div class="title">Legendary Quote</div>
+                        <p>{{ legend_story.legend_quotes }}. </p>
                     </div>
-                    <div class="col-md-12"><a href="trophies.html" class="booking">trophies</a></div>
                 </div>
             </div>
             <div class="col-md-5 position-relative">
                 <blockquote class="coach-quote">
-                    <p>Austin mustache man bun vice helvetica.</p>
-                    <p class="name">Brandon Campbell / head coach</p>
+
+                    <p class="name" style="color: #ffff00; font-size: 14px;"><b>{{ legend_story.legend_name }} / head coach</b></p>
                 </blockquote>
-                <img class="img-responsive" src="{% static 'images/soccer/coach.png' %}" alt="coach-image">
+                <img class="img-responsive" src="{% static 'images/soccer/eric.png' %}" alt="coach-image" style="height: 440px; width: 700px;">
             </div>
         </div>
     </div>

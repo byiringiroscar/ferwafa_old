@@ -546,7 +546,6 @@ def edit_table_player_points(request, id):
     user_profile = get_object_or_404(User_profile, user=user)
     ranking_player_table = get_object_or_404(player_statistics_ranking, id=id)
     rank_id = ranking_player_table.player_year_statistics.id
-    print("id is ---------------", rank_id)
     form = PlayerStatisticsRankingForm(request.POST or None, instance=ranking_player_table)
     if request.method == 'POST':
         form = PlayerStatisticsRankingForm(request.POST or None, instance=ranking_player_table)
