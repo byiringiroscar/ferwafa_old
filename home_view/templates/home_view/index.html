@@ -164,18 +164,18 @@
                 <div class="main-next-match bg-cover">
                     <img src="{% static 'images/soccer/next-match-bg.jpg' %}" class="next-match-background-img" alt="next-image">
                     <div class="wrap">
-                        <div class="place" >PRIMUS PREMIER LEAGUE</div>
+                        <div class="place" >{{ live_match_first.match_type }}</div>
                         <div class="date" >{{ live_match_first.date }}</div>
                         <div class="teams-wrap" >
-                                <a href="staff.html" class="team">
+                                <a href="#" class="team">
                                     <span>{{ live_match_first.team1 }}</span>
-                                    <span><img src="{% static 'images/common/team-logo1.png' %}" alt="team-image"></span>
+                                    <span><img src="{{ live_match_first.team1_logo.url }}" alt="team-image"></span>
                                 </a>
                                 <div class="vs">
                                    vs
                                 </div>
-                                <a href="staff.html" class="team1">
-                                    <span><img src="{% static 'images/common/team-logo2.png' %}" alt="team-image"></span>
+                                <a href="#" class="team1">
+                                    <span><img src="{{ live_match_first.team2_logo.url }}" alt="team-image"></span>
                                     <span>{{ live_match_first.team2 }}</span>
                                 </a>
                         </div>
@@ -189,24 +189,24 @@
                         {% for live_match in live_match %}
                         <div class="main-lates-matches">
                             <a href="#" class="item">
-                                <span class="championship">National cup - quarterfinal</span>
+                                <span class="championship">{{ live_match.match_type }}</span>
                                 <span class="teams-wrap">
                                         <span class="team">
                                             <span>
-                                                <img src="{% static 'images/common/team-logo1.png' %}" alt="team-image">
+                                                <img src="{{ live_match.team1_logo.url }}" alt="team-image">
                                             </span>
                                             <span>{{ live_match.team1 }}</span>
                                         </span>
                                         <span class="score">
-                                            <span>3:2</span>
+                                            <span>{{ live_match.team1_score }}:{{ live_match.team2_score }}</span>
 
                                         </span>
                                         <span class="team1">
-                                            <span>{{ team1.team2 }}</span>
-                                            <span><img src="{% static 'images/common/team-logo2.png' %}" alt="team-image"></span>
+                                            <span>{{ live_match.team2 }}</span>
+                                            <span><img src="{{ live_match.team2_logo.url }}" alt="team-image"></span>
                                         </span>
                                 </span>
-                                <span class="game-result">(5-4) penalties</span>
+{#                                <span class="game-result">(5-4) penalties</span>#}
                             </a>
 
                         </div>

@@ -18,21 +18,21 @@
 <div class="tab-content">
     <div class="tab-pane active" id="all">
         <div class="amateurs-main-match">
-            <div class="title">PRIMUS PREMIER LEAGUE </div>
-            <a href="matches.html" class="team">
-                <span class="image"><img src="{% static 'images/soccer/team-logo1.png' %}" alt="main-match"></span>
+            <div class="title">{{ upcoming_match_first.match_type }} </div>
+            <a href="#" class="team">
+                <span class="image"><img src="{{ upcoming_match_first.team1_logo.url }}" alt="main-match"></span>
                 <span class="info">
                     <span class="name">{{ upcoming_match_first.team1 }}</span>
                 </span>
             </a>
             <div class="score">
-                <span>3:2</span>
+                <span>{{ upcoming_match_first.team1_score }}:{{ upcoming_match_first.team2_score }}</span>
             </div>
-            <a href="matches.html" class="team guest">
+            <a href="#" class="team guest">
                 <span class="info">
                     <span class="name">{{ upcoming_match_first.team2 }}</span>
                 </span>
-                <span class="image"><img src="{% static 'images/soccer/team-logo2.png' %}" alt="main-match"></span>
+                <span class="image"><img src="{{ upcoming_match_first.team2_logo.url }}" alt="main-match"></span>
             </a>
             <div class="title">{{ upcoming_match_first.date }}</div>
         </div>
@@ -40,8 +40,8 @@
     <div class="tab-pane" id="nationalcup">
         <div class="amateurs-main-match">
             <div class="title">National Cup - Round 1</div>
-            <a href="matches.html" class="team">
-                <span class="image"><img src="images/soccer/team-logo3.png" alt="main-match"></span>
+            <a href="#" class="team">
+                <span class="image"><img src="{% static 'images/soccer/team-logo3.png' %}" alt="main-match"></span>
                 <span class="info">
                     <span class="name">Internacional</span>
                     <span class="city">london</span>
@@ -50,12 +50,12 @@
             <div class="score">
                 <span>3:2</span>
             </div>
-            <a href="matches.html" class="team guest">
+            <a href="#" class="team guest">
                 <span class="info">
                     <span class="name">Arsenalp</span>
                     <span class="city">Lyon</span>
                 </span>
-                <span class="image"><img src="images/soccer/team-logo4.png" alt="main-match"></span>
+                <span class="image"><img src="{% static 'images/soccer/team-logo4.png' %}" alt="main-match"></span>
             </a>
             <div class="title">26 september / 8:45 PM</div>
         </div>
@@ -72,17 +72,17 @@
         <span class="teams-wrap">
                 <span class="team">
                     <span>
-                        <img src="{% static 'images/common/team-logo1.png' %}" alt="team-image">
+                        <img src="{{ upcoming_match.team1_logo.url }}" alt="team-image">
                     </span>
                     <span>{{ upcoming_match.team1 }}</span>
                 </span>
                 <span class="score">
-                    <span>3:2</span>
+                    <span>{{ upcoming_match.team1_score }}:{{ upcoming_match.team2_score }}</span>
 
                 </span>
                 <span class="team1">
                     <span>{{ upcoming_match.team2 }}</span>
-                    <span><img src="{% static 'images/common/team-logo2.png' %}" alt="team-image"></span>
+                    <span><img src="{{ upcoming_match.team2_logo.url }}" alt="team-image"></span>
                 </span>
         </span>
     </a>

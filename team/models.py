@@ -192,8 +192,11 @@ class Live_match(models.Model):
     team2 = models.CharField(max_length=100)
     team1_score = models.PositiveIntegerField(default=0)
     team2_score = models.PositiveIntegerField(default=0)
+    team1_logo = models.ImageField(upload_to='images/', default='apr.png')
+    team2_logo = models.ImageField(upload_to='images/', default='rayon.png')
     match_link = models.URLField()
     date = models.DateTimeField()
+    match_type = models.CharField(max_length=50, default='PRIMUS PREMIER LEAGUE')
     suspended = models.BooleanField(default=False)
 
     def __str__(self):
