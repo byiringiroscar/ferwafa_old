@@ -9,6 +9,8 @@ from team.models import Team, Team_profile, Player, Player_profile, Ranking_Tabl
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import timedelta
+from datetime import datetime
 
 User = get_user_model()
 
@@ -333,7 +335,6 @@ def choose_ranking_team(request, id):
     user_profile = get_object_or_404(User_profile, user=user)
     team = Team.objects.all()
     ranking_id = get_object_or_404(Ranking_Table, id=id)
-    print("ranking ============", ranking_id)
     context = {
         'user': user,
         'profile': user_profile,
@@ -597,7 +598,7 @@ def livematch(request):
     user_profile = User_profile.objects.get(user=user)
     form = LiveMatchForm()
     if request.method == 'POST':
-        form = LiveMatchForm(request.POST)
+        form = LiveMatchForm(request.POST or None, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('livematch')
@@ -618,11 +619,25 @@ def edit_score(request, id):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
     live_stat_edit = get_object_or_404(Live_match, id=id)
+    match_date_time = live_stat_edit.date
+    # match date change in str format
+    match_date_time = match_date_time.strftime("%Y-%m-%d %H:%M:%S")
+    match_finish_time = live_stat_edit.date + timedelta(hours=2)
+    # match will be finish change in str format
+    match_finish_time = match_finish_time.strftime("%Y-%m-%d %H:%M:%S")
+    now_date_time = datetime.now()
+    # change now date to str format
+    now_date_time = now_date_time.strftime("%Y-%m-%d %H:%M:%S")
+
     form = EditScoreForm(request.POST or None, instance=live_stat_edit)
     if request.method == 'POST':
         form = EditScoreForm(request.POST or None, instance=live_stat_edit)
         if form.is_valid():
-            form.save()
+            if match_date_time > now_date_time and now_date_time < match_finish_time:
+                print("again oscar-------------")
+                messages.error(request, "you only allowed to change score when match is live")
+            else:
+                form.save()
             return redirect('livematch')
     context = {
         'user': user,

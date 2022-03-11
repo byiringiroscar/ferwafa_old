@@ -26,7 +26,7 @@ def create_account(request):
 
 
 def home(request):
-    live_match = Live_match.objects.all().order_by('-id')
+    live_match = Live_match.objects.filter(suspended=False).order_by('-id')
     live_match_first = Live_match.objects.all().order_by('-id').first()
     latest_ranking_table = Ranking_Table.objects.all().order_by('-ranking_year')[0]
     player_goals_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(

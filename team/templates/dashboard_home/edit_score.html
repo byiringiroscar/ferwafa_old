@@ -10,6 +10,15 @@
                       {% csrf_token %}
                     {{ form|crispy }}
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      {% if messages %}
+                          {% for message in messages %}
+                              <div class="row">
+                                <div class="col s12">
+                          <span style="color: red; font-weight: bold;">Check if match is live on date</span>
+                                </div>
+                        </div>
+                          {% endfor %}
+                      {% endif %}
                   </form>
                 </div>
               </div>

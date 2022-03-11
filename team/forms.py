@@ -4,6 +4,8 @@ from team.models import Team, Team_profile, Player, Player_profile, Ranking_Tabl
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 import datetime
+from datetime import timedelta
+from datetime import datetime
 
 now = timezone.now()
 from ckeditor.widgets import CKEditorWidget
@@ -110,13 +112,22 @@ class PlayerStatisticsRankingForm(forms.ModelForm):
     player_goals = forms.IntegerField(label='Player Goal', required=False, initial=0)
     player_assist = forms.IntegerField(label='Player Assist', required=False, initial=0)
     player_shot = forms.IntegerField(label='Player Shots', required=False, initial=0)
-    player_clean_shit = forms.IntegerField(label='Player Cleanshit', required=False, initial=0)
+    player_clean_shit = forms.IntegerField(label='Goalkeeper clean sheet', required=False, initial=0)
     player_tackle = forms.IntegerField(label='Player Tackle', required=False, initial=0)
     player_game_played = forms.IntegerField(label='Player game played', required=False, initial=0)
 
     class Meta:
         model = player_statistics_ranking
-        fields = ['player_goals', 'player_assist', 'player_shot', 'player_clean_shit', 'player_tackle', 'player_game_played']
+        fields = ['player_goals', 'player_assist', 'player_shot', 'player_tackle',
+                  'player_game_played', 'player_clean_shit']
+
+    def clean(self):
+        cleaned_data = super(PlayerStatisticsRankingForm, self).clean()
+        player_clean_sht = cleaned_data.get('player_clean_shit')
+        player_game_played = cleaned_data.get('player_game_played')
+        if int(player_clean_sht) > int(player_game_played):
+            raise forms.ValidationError("number of clean sheet greater number of game played")
+        return cleaned_data
 
     def clean_player_goals(self):
         player_goals = self.cleaned_data['player_goals']
@@ -129,7 +140,6 @@ class PlayerStatisticsRankingForm(forms.ModelForm):
         if player_assist < 0:
             raise ValidationError("Assist must be equal to 0 or greater 0")
         return player_assist
-
 
 
 class Legend_story_Form(forms.ModelForm):
@@ -152,12 +162,15 @@ class LiveMatchForm(forms.ModelForm):
                             required=True)
     team2 = forms.CharField(max_length=30, label='Team 2',
                             required=True)
+    team1_logo = forms.ImageField(label="Team 1 logo", required=True)
+    team2_logo = forms.ImageField(label="Team 2 logo", required=True)
     team1_score = forms.IntegerField(label='Team 1 Score', required=True)
     team2_score = forms.IntegerField(label='Team 2 Score', required=True)
+    match_type = forms.CharField(max_length=50, label="Match Type", required=True)
     match_link = forms.URLField(label='Match Link', required=False)
-    date = forms.DateField(
-        widget=forms.TextInput(
-            attrs={'type': 'date'}
+    date = forms.DateTimeField(
+        widget=forms.widgets.DateTimeInput(
+            attrs={'type': 'datetime-local'}
         ),
         label='Match Date',
         required=True
@@ -165,7 +178,36 @@ class LiveMatchForm(forms.ModelForm):
 
     class Meta:
         model = Live_match
-        fields = ['team1', 'team2', 'team1_score', 'team2_score', 'match_link', 'date']
+        fields = ['team1', 'team2', 'team1_logo', 'team2_logo', 'match_type', 'team1_score', 'team2_score',
+                  'match_link', 'date']
+
+    def clean(self):
+        cleaned_data = super(LiveMatchForm, self).clean()
+        team1_score = cleaned_data.get('team1_score')
+        team2_score = cleaned_data.get('team2_score')
+        date = cleaned_data.get('date')
+        # date in str format
+        date_format = date.strftime("%Y-%m-%d %H:%M:%S")
+        # date in datetime type
+        date_format_to_date = datetime.strptime(date_format, "%Y-%m-%d %H:%M:%S")
+        time_to_add = timedelta(hours=2)
+        # match duration in datetime format this range is where match ending
+        match_duration_time = date_format_to_date + time_to_add
+        # now date in str format
+        now_date = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+        # now date in datetime format
+        now_date_time = datetime.strptime(now_date, "%Y-%m-%d %H:%M:%S")
+        # time match start and end
+        if date_format_to_date < now_date_time:
+            raise forms.ValidationError("check your date of match ")
+
+        elif date_format_to_date > now_date_time and now_date_time < match_duration_time and team1_score > 0 and team2_score > 0:
+            raise forms.ValidationError("score must be 0-0 until game match is live or check if match is not over")
+        elif date_format_to_date > now_date_time and now_date_time < match_duration_time and team1_score > 0:
+            raise forms.ValidationError("Team 1 score must be 0 until game match is live or check if match is not over")
+        elif date_format_to_date > now_date_time and now_date_time < match_duration_time and team2_score > 0:
+            raise forms.ValidationError("Team 2 score must be 0 until game match is live or check if match is not over")
+        return cleaned_data
 
     def clean_team1_score(self):
         team1_score = self.cleaned_data['team1_score']
@@ -242,4 +284,5 @@ class ClubManagerForm(forms.ModelForm):
 
     class Meta:
         model = Club_managers
-        fields = ['manager_name', 'manager_image', 'managers_formation', 'managers_birth_date', 'manager_country', 'manager_link']
+        fields = ['manager_name', 'manager_image', 'managers_formation', 'managers_birth_date', 'manager_country',
+                  'manager_link']
