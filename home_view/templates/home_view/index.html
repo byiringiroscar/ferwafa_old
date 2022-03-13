@@ -87,62 +87,24 @@
             <div class="event-nav">
                 <div class="container">
                     <div class="row no-gutter carousel-indicators">
-
-                        <div class="col-sm-4 active" data-slide-to="0" data-target="#main-slider">
-                            <a href="#" class="nav-item">
-                                <span class="championship">National cup - quarterfinal</span>
-                                <span class="teams-wrap">
-                                    <span class="team"><img src="{% static 'images/soccer/team-logo1.png' %}" alt="team-logo"></span>
-                                    <span class="score">
-                                        <span>1:0</span>
-                                    </span>
-
-                                    <span class="team1">
-                                        <span><img src="{% static 'images/soccer/team-logo2.png' %}" alt="team-logo"></span>
-                                    </span>
-                                </span>
-                                <span class="game-result">(5-4) penalties</span>
-                            </a>
-                        </div>
-
-                        <div class="col-sm-4" data-slide-to="1" data-target="#main-slider">
-                            <a href="#" class="nav-item">
-                                <span class="championship">Team Name 1 - Team Name 2</span>
-                                <span class="teams-wrap">
-
-                                    <span class="team"><img src="{% static 'images/soccer/team-logo5.png' %}" alt="team-logo"></span>
-                                    <span class="score countdown" data-date="1534185200000">
-                                        <span class="days"></span>
-                                        <span class="hours"></span>
-                                        <span class="minutes"></span>
-                                        <span class="seconds"></span>
-                                    </span>
-
-                                    <span class="team1">
-                                        <span><img src="{% static 'images/soccer/team-logo1.png' %}" alt="team-logo"></span>
-                                    </span>
-
-                                </span>
-                                <span class="game-result">26 Sep 2016 / 9:30 PM / city arena</span>
-                            </a>
-                        </div>
+                        {% for match_done in match_done|slice:":5" %}
 
                         <div class="col-sm-4" data-slide-to="2" data-target="#main-slider">
                             <a href="#" class="nav-item">
-                                <span class="championship">National cup - quarterfinal</span>
+                                <span class="championship">{{ match_done.match_type }}</span>
                                 <span class="teams-wrap">
-                                    <span class="team"><img src="{% static 'images/soccer/team-logo3.png' %}" alt="team-logo"></span>
+                                    <span class="team"><img src="{{ match_done.team1_logo.url }}" alt="team-logo"></span>
                                     <span class="score">
-                                        <span>VS</span>
+                                        <span>{{ match_done.team1_score }}</span><span>{{ match_done.team1_score }}</span>
                                     </span>
 
                                     <span class="team1">
-                                        <span><img src="{% static 'images/soccer/team-logo4.png' %}" alt="team-logo"></span>
+                                        <span><img src="{{ match_done.team2_logo.url }}" alt="team-logo"></span>
                                     </span>
                                 </span>
-                                <span class="game-result">(5-4) penalties</span>
                             </a>
                         </div>
+                        {% endfor %}
 
                     </div>
                 </div>
@@ -158,7 +120,7 @@
     <section class="main-match-shedule">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="col-md-6 col-sm-12 col-xs-12" >
                     <h6>Next match</h6>
 
                 <div class="main-next-match bg-cover">
@@ -183,9 +145,9 @@
                     </div>
                 </div>
                 </div>
+                <h6 style="">Latest matches</h6>
+                <div class="col-md-6 col-sm-12 col-xs-12" style="height: 550px; overflow-y: scroll">
 
-                <div class="col-md-6 col-sm-12 col-xs-12">
-                    <h6>Latest matches</h6>
                         {% for live_match in live_match %}
                         <div class="main-lates-matches">
                             <a href="#" class="item">
@@ -439,7 +401,7 @@
                     </ul>
                 </div>
                 <div class="tab-content">
-                    <div class="best-players-list tab-pane active" id="goals" style="height: 350px; overflow-y: scroll">
+                    <div class="best-players-list tab-pane active" id="goals">
                         {% for player_goals in player_goals %}
                             {% if not player_goals.player_goals == 0 %}
                         <a href="{% url 'home_player_detail' player_goals.player_team.id player_goals.player_statistics.id %}" class="item">
@@ -451,7 +413,7 @@
                         {% endfor %}
 
                     </div>
-                    <div class="best-players-list tab-pane" id="assist" style="height: 350px; overflow-y: scroll">
+                    <div class="best-players-list tab-pane" id="assist">
                         {% for player_assist in player_assist %}
                             {% if not player_assist.player_assist == 0 %}
                         <a href="{% url 'home_player_detail' player_assist.player_team.id player_assist.player_statistics.id %}" class="item">
@@ -463,7 +425,7 @@
                         {% endfor %}
 
                     </div>
-                    <div class="best-players-list tab-pane" id="goalkeeper_all" style="height: 350px; overflow-y: scroll">
+                    <div class="best-players-list tab-pane" id="goalkeeper_all" >
                         {% for player_clean_sheet in player_clean_sheet %}
                             {% if not player_clean_sheet.player_clean_shit == 0 %}
                         <a href="{% url 'home_player_detail' player_clean_sheet.player_team.id player_clean_sheet.player_statistics.id %}" class="item">

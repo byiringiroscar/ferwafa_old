@@ -30,11 +30,11 @@ def home(request):
     live_match_first = Live_match.objects.all().order_by('-id').first()
     latest_ranking_table = Ranking_Table.objects.all().order_by('-ranking_year')[0]
     player_goals_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
-        '-player_goals')
+        '-player_goals')[:11]
     player_assist_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
-        '-player_assist')
+        '-player_assist')[:11]
     player_goalkeeper_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
-        '-player_clean_shit')
+        '-player_clean_shit')[:11]
     player_goals_stat_slide = player_statistics_ranking.objects.filter(
         player_year_statistics=latest_ranking_table).order_by(
         '-player_goals').first()
@@ -44,6 +44,7 @@ def home(request):
     player_clean_sheet_slide = player_statistics_ranking.objects.filter(
         player_year_statistics=latest_ranking_table).order_by(
         '-player_clean_shit').first()
+    match_done_in_past = Live_match.objects.filter(date__gte=now_time)
 
     coach = Club_managers.objects.all()
     legend_story = Legend_story.objects.all().first()
@@ -57,7 +58,8 @@ def home(request):
         'player_assist_slide': player_assist_slide,
         'player_clean_sheet_slide': player_clean_sheet_slide,
         'legend_story': legend_story,
-        'coach': coach
+        'coach': coach,
+        'match_done': match_done_in_past
     }
     return render(request, 'home_view/index.html', context)
 
