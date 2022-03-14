@@ -33,7 +33,8 @@ def home(request):
         '-player_goals')[:11]
     player_assist_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
         '-player_assist')[:11]
-    player_goalkeeper_stat = player_statistics_ranking.objects.filter(player_year_statistics=latest_ranking_table).order_by(
+    player_goalkeeper_stat = player_statistics_ranking.objects.filter(
+        player_year_statistics=latest_ranking_table).order_by(
         '-player_clean_shit')[:11]
     player_goals_stat_slide = player_statistics_ranking.objects.filter(
         player_year_statistics=latest_ranking_table).order_by(
@@ -170,7 +171,10 @@ def home_upcoming_match(request):
 
 def home_manager_detail(request, id):
     manager_detail = get_object_or_404(Club_managers, id=id)
+    manager_formation = str(manager_detail.managers_formation)
+
     context = {
-        'coach': manager_detail
+        'coach': manager_detail,
+        'manager_formation': manager_formation,
     }
     return render(request, 'home_view/home_manager_detail.html', context)
