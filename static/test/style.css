@@ -1,0 +1,18 @@
+#leftdm{
+    margin-left: 4cm; margin-top: 10.2cm;
+}
+#rightdm{
+    margin-right: 3cm;
+}
+
+@media screen and (max-width: 480px) {
+    #leftdm {
+        margin-top: 7.7cm;
+    }
+}
+
+@media screen and (min-width: 480px) {
+    #leftdm {
+        margin-top: 10.8cm;
+    }
+}
