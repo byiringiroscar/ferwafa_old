@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from authentication.forms import UserRegistrationForm
 from team.models import Team, Team_profile, Player, Player_profile, Trophy_team, Table_Ranking, Live_match, \
-    Ranking_Table, player_statistics_ranking, Legend_story
+    Ranking_Table, player_statistics_ranking, Legend_story, Connect_message
 from datetime import datetime
+from team.forms import ConnectMessageForm
 from team.models import Club_managers
+from .utilis import Util
 
 now_time = datetime.now()
 
@@ -178,3 +180,30 @@ def home_manager_detail(request, id):
         'manager_formation': manager_formation,
     }
     return render(request, 'home_view/home_manager_detail.html', context)
+
+
+def home_contact_connect(request, id, player_id):
+    team_contact = get_object_or_404(Team, id=id)
+    player_contact = get_object_or_404(Player, id=player_id)
+    form = ConnectMessageForm()
+    if request.method == 'POST':
+        form = ConnectMessageForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data.get('name')
+            subject = form.cleaned_data.get('subject')
+            email = form.cleaned_data.get('email')
+            body = form.cleaned_data.get('body')
+            Connect_message.objects.create(team=team_contact, player=player_contact, name=name, subject=subject, email=email, body=body)
+            data = {'email_subject': subject, 'email_body': body, 'to_email': 'byiringoroscar@gmail.com'}
+            Util.send_email(data)
+            return redirect('home_view')
+    else:
+        form = ConnectMessageForm()
+
+    context = {
+        'team': team_contact,
+        'player': player_contact,
+        'form': form
+    }
+    return render(request, 'home_view/home_contact_connect.html', context)
+

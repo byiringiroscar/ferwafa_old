@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import dashboard, add_team, profile, team_detail, main_profile, team_profile, add_player, view_player, \
     player_detail, player_profile, team, player, ranking_table_name, ranking, choose_ranking_team, ranking_page, table_ranking_list, team_table_points, edit_table_points, add_player_stat, \
-rank_player_team, player_rank, player_rank_points, player_rank_official_table, player_table_points, edit_table_player_points, edit_main_team_profile, legend_story, delete_legend, livematch, edit_score, suspend_match, create_trophy, trophy, give_team_trophy, confirm_trophy_cup, add_manager
+rank_player_team, player_rank, player_rank_points, player_rank_official_table, player_table_points, edit_table_player_points, edit_main_team_profile, legend_story, delete_legend, livematch, edit_score, suspend_match, create_trophy, trophy, give_team_trophy, confirm_trophy_cup, add_manager, dashboard_contact_inbox
 
 name = 'team'
 urlpatterns = [
@@ -77,6 +77,8 @@ urlpatterns = [
     # confirm team trophy
     path('trophy/<int:id>/give_team_trophy/<team_id>/', confirm_trophy_cup, name='confirm_trophy_cup'),
     # add club manager and view
-    path('add_manager/', add_manager, name='add_manager')
+    path('add_manager/', add_manager, name='add_manager'),
+    # path for all inbox message
+    path('dashboard_contact_inbox/', dashboard_contact_inbox, name='dashboard_contact_inbox')
 
 ]

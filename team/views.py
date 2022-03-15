@@ -5,7 +5,7 @@ from team.forms import TeamForm, Team_Profile_Form, PlayerForm, PlayerProfileFor
     TableRankingStandingForm, PlayerStatisticsRankingForm, Legend_story_Form, LiveMatchForm, EditScoreForm, \
     CreateTrophyForm, ClubManagerForm
 from team.models import Team, Team_profile, Player, Player_profile, Ranking_Table, Table_Ranking, \
-    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team, Club_managers
+    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team, Club_managers, Connect_message
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -20,6 +20,8 @@ User = get_user_model()
 def dashboard(request):
     user = request.user
     user_profile = User_profile.objects.get(user=user)
+    notification_message = Connect_message.objects.filter(team__user=user, readed_message=False)
+    notification = notification_message.count()
     team = Team.objects.filter(user=user)
     number_of_team = Team.objects.filter(user=user).count()
     team_first = Team.objects.filter(user=user)
@@ -36,6 +38,8 @@ def dashboard(request):
         'team': team,
         'number_of_team': number_of_team,
         'total': total,
+        'notification_message': notification_message,
+        'notification': notification
     }
     return render(request, 'dashboard_home/index.html', context)
 
@@ -737,3 +741,21 @@ def add_manager(request):
         'manager': all_coaches
     }
     return render(request, 'dashboard_home/add_manager.html', context)
+
+
+def dashboard_contact_inbox(request):
+    user = request.user
+    user_profile = User_profile.objects.get(user=user)
+    notification_message_all = Connect_message.objects.filter(team__user=user)
+    notification_message_all_count = notification_message_all.count()
+    notification_message = Connect_message.objects.filter(team__user=user, readed_message=False)
+    notification = notification_message.count()
+    context = {
+        'user': user,
+        'profile': user_profile,
+        'notification_message': notification_message,
+        'notification': notification,
+        'notification_message_all': notification_message_all,
+        'notification_message_all_count': notification_message_all_count
+    }
+    return render(request, 'dashboard_home/dashboard_contact_inbox.html', context)

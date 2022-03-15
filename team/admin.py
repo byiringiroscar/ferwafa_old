@@ -1,6 +1,6 @@
 from django.contrib import admin
 from team.models import Team, Team_profile, Player, Player_profile, Ranking_Table, Table_Ranking, Trophy, Trophy_team, \
-    player_statistics_ranking, Live_match, Legend_story, Club_managers
+    player_statistics_ranking, Live_match, Legend_story, Club_managers, Connect_message
 
 
 # Register your models here.
@@ -23,4 +23,5 @@ admin.site.register(Trophy_team)
 admin.site.register(player_statistics_ranking)
 admin.site.register(Live_match)
 admin.site.register(Legend_story)
+admin.site.register(Connect_message)
 admin.site.register(Club_managers, Manager_Admin)

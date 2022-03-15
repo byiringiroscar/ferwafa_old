@@ -1,0 +1,50 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <i class="fas fa-envelope"></i>
+                    Inbox({{ notification_message_all_count }})
+                  </h4>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tbody>
+                      {% for notification_message_all in notification_message_all %}
+                        <tr>
+                          <td class="py-1">
+                            <img src="{% static 'profile.png' %}" alt="profile" class="img-sm rounded-circle"/>
+                          </td>
+                          <td class="font-weight-bold">
+                            {{ notification_message_all.name }}
+                          </td>
+                          <td>
+                            <label class="badge badge-light badge-pill">Transfer on player {{ notification_message_all.player.player_name }}</label>
+                          </td>
+                            <td class="">
+                            <img src="{{ notification_message_all.player.player_image.url }}" alt="profile" class="img-sm rounded-circle"/>
+                          </td>
+                          <td>
+                            {{ notification_message_all.subject }}
+                          </td>
+                          <td>
+                            <i class="fas fa-ellipsis-v"></i>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+{% endblock %}

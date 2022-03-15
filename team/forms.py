@@ -1,6 +1,6 @@
 from django import forms
 from team.models import Team, Team_profile, Player, Player_profile, Ranking_Table, Table_Ranking, \
-    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team, Club_managers
+    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team, Club_managers, Connect_message
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 import datetime
@@ -287,3 +287,13 @@ class ClubManagerForm(forms.ModelForm):
         model = Club_managers
         fields = ['manager_name', 'manager_image', 'managers_formation', 'managers_birth_date', 'manager_country',
                   'manager_link']
+
+
+class ConnectMessageForm(forms.ModelForm):
+    name = forms.CharField(max_length=50, required=True, label='Your Name')
+    subject = forms.CharField(max_length=50, required=50, label='Subject')
+    email = forms.EmailField(required=True, label='Your email')
+
+    class Meta:
+        model = Connect_message
+        fields = ['name', 'subject', 'email', 'body']

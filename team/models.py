@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 import datetime
+from ckeditor.fields import RichTextField
 
 now = timezone.now()
 today_year_exact = datetime.date.today()
@@ -256,3 +257,21 @@ class Club_managers(models.Model):
         age_manager = today_year - managers_birth_year
         self.manager_age = age_manager
         super(Club_managers, self).save(*args, **kwargs)
+
+
+class Connect_message(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True)
+    player = models.ForeignKey(Player, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=50)
+    subject = models.CharField(max_length=50)
+    email = models.EmailField()
+    body = RichTextField()
+    date = models.DateTimeField(default=now)
+    readed_message = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.name} -- {self.email}'
+
+    class Meta:
+        verbose_name_plural = 'Connect Message'
+        ordering = ['-date']

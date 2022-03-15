@@ -48,8 +48,8 @@
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item d-none d-lg-flex">
-            <a class="nav-link" href="#">
-              <span class="btn btn-primary">+ Create new</span>
+            <a class="nav-link" href="{% url 'add_team' %}">
+              <span class="btn btn-primary">+ Create new Team</span>
             </a>
           </li>
 
@@ -111,56 +111,32 @@
           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-envelope mx-0"></i>
-              <span class="count">25</span>
+              <span class="count">{{ notification }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
               <div class="dropdown-item">
-                <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
+                <p class="mb-0 font-weight-normal float-left">You have {{ notification }} unread mails
                 </p>
-                <span class="badge badge-info badge-pill float-right">View all</span>
+                  <a href="{% url 'dashboard_contact_inbox' %}"><span class="badge badge-info badge-pill float-right">View all</span></a>
+
               </div>
               <div class="dropdown-divider"></div>
+                {% for notification_message in notification_message %}
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
-                    <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                    <img src="{% static 'profile.png' %}" alt="image" class="profile-pic">
                 </div>
                 <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-medium">David Grey
-                    <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                  <h6 class="preview-subject ellipsis font-weight-medium">{{ notification_message.name }}
                   </h6>
                   <p class="font-weight-light small-text">
-                    The meeting is cancelled
+                    {{ notification_message.subject }}
                   </p>
                 </div>
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
-                    <span class="float-right font-weight-light small-text">15 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text">
-                    New product launch
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-medium"> Johnson
-                    <span class="float-right font-weight-light small-text">18 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text">
-                    Upcoming board meeting
-                  </p>
-                </div>
-              </a>
+                {% endfor %}
+
             </div>
           </li>
           <li class="nav-item nav-profile dropdown">
@@ -216,47 +192,6 @@
             <div class="tiles dark"></div>
             <div class="tiles default"></div>
           </div>
-        </div>
-      </div>
-      <div id="right-sidebar" class="settings-panel">
-        <i class="settings-close fa fa-times"></i>
-        <ul class="nav nav-tabs" id="setting-panel" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="setting-content">
-
-          <!-- To do section tab ends -->
-          <div class="tab-pane fade show active scroll-wrapper" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
-            <div class="d-flex align-items-center justify-content-between border-bottom">
-              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
-            </div>
-            <ul class="chat-list">
-              <li class="list active">
-                <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span class="online"></span></div>
-                <div class="info">
-                  <p>Thomas Douglas</p>
-                  <p>Available</p>
-                </div>
-                <small class="text-muted my-auto">19 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
-                <div class="info">
-                  <div class="wrapper d-flex">
-                    <p>Catherine</p>
-                  </div>
-                  <p>Away</p>
-                </div>
-                <div class="badge badge-success badge-pill my-auto mx-2">4</div>
-                <small class="text-muted my-auto">23 min</small>
-              </li>
-
-            </ul>
-          </div>
-          <!-- chat tab ends -->
         </div>
       </div>
       <!-- partial -->
@@ -325,7 +260,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{% url 'add_player_stat' %}" aria-expanded="false" aria-controls="ui-basic">
               <i class="fa fa-plus-circle menu-icon" aria-hidden="true"></i>
-              <span class="menu-title">Add Player Stat</span>
+              <span class="menu-title">Add Player Stati</span>
             </a>
           </li>
         <li class="nav-item">
