@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41ad90c2-acbf-40f9-8af3-7569a91a2c15" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ferwafa/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ferwafa/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -126,7 +127,7 @@
       <workItem from="1646892838671" duration="23207000" />
       <workItem from="1646935350866" duration="17945000" />
       <workItem from="1647148129199" duration="56476000" />
-      <workItem from="1647327046216" duration="15957000" />
+      <workItem from="1647327046216" duration="16461000" />
     </task>
     <servers />
   </component>
