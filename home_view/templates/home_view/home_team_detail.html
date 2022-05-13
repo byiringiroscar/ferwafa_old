@@ -146,9 +146,8 @@
                     </tr>
                     {% for table_ranking in table_ranking %}
                     <tr>
-
                         <td>
-                            <span class="team"><img src="{{ table_ranking.team.team_picture.url }}" width="30" height="30" alt="team-logo"></span>
+                            <i class="fa fa-caret-up" aria-hidden="true"></i>  {{ counter }} <span class="team"><img src="{{ table_ranking.team.team_picture.url }}" width="30" height="30" alt="team-logo"></span>
                             <span>{{ table_ranking.team.team_name }}</span>
                         </td>
                         <td>{{ table_ranking.game_played }}</td>

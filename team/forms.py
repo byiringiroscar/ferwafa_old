@@ -1,6 +1,6 @@
 from django import forms
 from team.models import Team, Team_profile, Player, Player_profile, Ranking_Table, Table_Ranking, \
-    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team, Club_managers, Connect_message
+    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team, Club_managers, Connect_message, Trophy_manager
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 import datetime
@@ -14,7 +14,7 @@ from ckeditor.widgets import CKEditorWidget
 class TeamForm(forms.ModelForm):
     class Meta:
         model = Team
-        fields = ['team_name', 'team_picture', 'team_president']
+        fields = ['team_name', 'team_picture', 'team_president', 'team_email_transfer']
 
 
 class Team_Profile_Form(forms.ModelForm):
@@ -285,15 +285,33 @@ class ClubManagerForm(forms.ModelForm):
 
     class Meta:
         model = Club_managers
-        fields = ['manager_name', 'manager_image', 'managers_formation', 'managers_birth_date', 'manager_country',
+        fields = ['manager_name', 'manager_image', 'current_team', 'current_season', 'managers_formation', 'managers_birth_date', 'manager_country',
                   'manager_link']
 
 
 class ConnectMessageForm(forms.ModelForm):
     name = forms.CharField(max_length=50, required=True, label='Your Name')
     subject = forms.CharField(max_length=50, required=50, label='Subject')
+    file_field = forms.FileField(label='Upload Scout / Agent file')
     email = forms.EmailField(required=True, label='Your email')
 
     class Meta:
         model = Connect_message
-        fields = ['name', 'subject', 'email', 'body']
+        fields = ['name', 'subject', 'email', 'file_field', 'body']
+
+
+class AddManagerTrophyForm(forms.ModelForm):
+    trophy_name = forms.CharField(max_length=20, label='Trophy Name', required=True)
+
+    trophy_year = forms.DateField(
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
+        ),
+        label='Trophy Year',
+        required=True
+    )
+    trophy_image = forms.ImageField(label='Trophy logo', required=False)
+
+    class Meta:
+        model = Trophy_manager
+        fields = ['trophy_name', 'trophy_year', 'trophy_image']

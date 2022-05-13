@@ -375,7 +375,7 @@
                 <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12" >
-                        <h6>club history</h6>
+                        <h6>Current season</h6>
                         <div class="overflow-scroll">
                             <table>
                                 <tr>
@@ -386,47 +386,33 @@
                                     <th>draw</th>
                                     <th>wins</th>
                                 </tr>
+                                {% for manager_table in manager_table_rank %}
                                 <tr>
-                                    <td>2016/2017</td>
+                                    <td>{{ manager_table.ranking.ranking_year.year }}</td>
                                     <td class="club">
                                         <a href="">
-                                            <span class="team"><img src="{% static 'images/common/team-logo2.png' %}" width="30" height="30" alt="trophy"></span> <span style="margin: auto">Apr</span>
+                                            <span class="team"><img src="{{ manager_table.team.team_picture.url }}" width="30" height="30" alt="trophy"></span> <span style="margin: auto">{{ manager_table.team.team_name }}</span>
                                         </a>
                                     </td>
-                                    <td>27</td>
-                                    <td>10</td>
-                                    <td>9</td>
-                                    <td><span>10</span></td>
+                                    <td>{{ manager_table.game_played }}</td>
+                                    <td>{{ manager_table.loss }}</td>
+                                    <td>{{ manager_table.draw }}</td>
+                                    <td><span>{{ manager_table.win }}</span></td>
                                 </tr>
-                                <tr>
-                                    <td>2016/2017</td>
-                                    <td class="club">
-                                        <a href="matches.html">
-                                            <span class="team"><img src="{% static 'images/soccer/team-logo2.png' %}" width="30" height="30" alt="trophy"></span><span style="margin: auto"> Kiyovu </span>
-                                        </a>
-                                    </td>
-                                    <td>27</td>
-                                    <td>10</td>
-                                    <td>9</td>
-                                    <td><span>10</span></td>
-                                </tr>
+                                {% endfor %}
                             </table>
                         </div>
                         <h6>Trophies</h6>
                         <div class="background-section">
                             <ul class="player-trophey">
+                                {% for trophy in manager_trophy %}
                                 <li>
-                                    <img src="{% static 'images/common/am-trophey1.png' %}" width="100" height="150" alt="trophy">
-                                    <div class="year">2012</div>
+                                    <div class="nav-item" style="background-color: yellow">{{ trophy.trophy_name.upper }}</div>
+                                    <img src="{{ trophy.trophy_image.url }}" width="100" height="150" alt="trophy">
+                                    <div class="year">{{ trophy.trophy_year.year }}</div>
+
                                 </li>
-                                <li>
-                                    <img src="{% static 'images/common/am-trophey.png' %}" width="100" height="150" alt="trophy">
-                                    <div class="year">2015</div>
-                                </li>
-                                <li>
-                                    <img src="{% static 'images/common/am-trophey2.png' %}" width="100" height="150" alt="trophy">
-                                    <div class="year">2017</div>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <div class="col-md-12">

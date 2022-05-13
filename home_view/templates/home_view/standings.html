@@ -55,14 +55,12 @@
                                     <th>lost</th>
                                     <th>gd</th>
                                     <th>points</th>
-                                    <th>form</th>
-                                    <th>next</th>
                                 </tr>
                                 {% for team_year in ranking_table_year %}
                                     {% if team_year.ranking.ranking_year.year == standing.ranking_year.year %}
                                 <tr>
                                     <td class="up">
-                                        <i class="fa fa-caret-up" aria-hidden="true"></i> 1 <span class="team"><img src="{{ team_year.team.team_picture.url }}" width="30" height="30" alt="team-logo"> </span>{{ team_year.team.team_name }}
+                                        <i class="fa fa-caret-up" aria-hidden="true"></i>  {{ counter }} <span class="team"><img src="{{ team_year.team.team_picture.url }}" width="30" height="30" alt="team-logo"> </span>{{ team_year.team.team_name }}
                                     </td>
                                     <td>{{ team_year.game_played }}</td>
                                     <td>{{ team_year.win }}</td>
@@ -70,14 +68,7 @@
                                     <td>{{ team_year.loss }}</td>
                                     <td>+16</td>
                                     <td class="points"><span>{{ team_year.team_points }}</span></td>
-                                    <td class="form">
-                                        <span class="win">w</span>
-                                        <span class="drawn">d</span>
-                                        <span class="lose">l</span>
-                                        <span class="win">w</span>
-                                        <span class="win">w</span>
-                                    </td>
-                                    <td><a href="club-stats.html"><img src="{% static 'images/soccer/team-logo2.png' %}" width="30" height="30" alt="team-logo"></a></td>
+
                                 </tr>
                                         {% endif %}
                                 {% endfor %}
@@ -95,14 +86,12 @@
                                     <th>lost</th>
                                     <th>gd</th>
                                     <th>points</th>
-                                    <th>form</th>
-                                    <th>next</th>
                                 </tr>
                                 {% for team_year in ranking_table_year %}
                                     {% if team_year.ranking.ranking_year.year == standing.ranking_year.year %}
                                 <tr>
                                     <td class="up">
-                                        <i class="fa fa-caret-up" aria-hidden="true"></i> 1 <span class="team"><img src="{{ team_year.team.team_picture.url }}" width="30" height="30" alt="team-logo"> </span>{{ team_year.team.team_name }}
+                                        <i class="fa fa-caret-up" aria-hidden="true"></i><span class="team"><img src="{{ team_year.team.team_picture.url }}" width="30" height="30" alt="team-logo"> </span>{{ team_year.team.team_name }}
                                     </td>
                                     <td>{{ team_year.game_played }}</td>
                                     <td>{{ team_year.win }}</td>
@@ -110,14 +99,6 @@
                                     <td>{{ team_year.loss }}</td>
                                     <td>+{{ team_year.team_points }}</td>
                                     <td class="points"><span>+{{ team_year.team_points }}</span></td>
-                                    <td class="form">
-                                        <span class="win">w</span>
-                                        <span class="drawn">d</span>
-                                        <span class="lose">l</span>
-                                        <span class="win">w</span>
-                                        <span class="win">w</span>
-                                    </td>
-                                    <td><a href="club-stats.html"><img src="{% static 'images/soccer/team-logo2.png' %}" width="30" height="30" alt="team-logo"></a></td>
                                 </tr>
                                     {% endif %}
                                     {% endfor %}
@@ -130,9 +111,7 @@
                     {% endfor %}
                     </div>
                 </div>
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <p>Pabst irony tattooed, synth sriracha selvage pok pok. Wayfarers kinfolk sartorial, helvetica you probably haven't heard of them tumeric venmo deep v mixtape semiotics brunch.</p>
-                </div>
+
             </div>
         </div>
     </section>

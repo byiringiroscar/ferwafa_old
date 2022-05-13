@@ -107,7 +107,11 @@
 
                         </div>
                         <div>
-                          <button class="btn btn-primary">Request</button>
+                            {% if team.visibility %}
+                                <a href="{% url 'remove_team' team.id %}"><button class="btn btn-danger">Visibility Off</button></a>
+                                {% else %}
+                                <a href="{% url 'remove_team' team.id %}"><button class="btn btn-primary">Visibility On</button></a>
+                            {% endif %}
                         </div>
                       </div>
 

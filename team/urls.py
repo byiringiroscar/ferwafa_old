@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import dashboard, add_team, profile, team_detail, main_profile, team_profile, add_player, view_player, \
     player_detail, player_profile, team, player, ranking_table_name, ranking, choose_ranking_team, ranking_page, table_ranking_list, team_table_points, edit_table_points, add_player_stat, \
-rank_player_team, player_rank, player_rank_points, player_rank_official_table, player_table_points, edit_table_player_points, edit_main_team_profile, legend_story, delete_legend, livematch, edit_score, suspend_match, create_trophy, trophy, give_team_trophy, confirm_trophy_cup, add_manager, dashboard_contact_inbox
+rank_player_team, player_rank, player_rank_points, player_rank_official_table, player_table_points, edit_table_player_points, edit_main_team_profile, legend_story, delete_legend, livematch, edit_score, suspend_match, create_trophy, trophy, give_team_trophy, confirm_trophy_cup, add_manager, dashboard_contact_inbox, remove_player, add_manager_trophy, give_manager_trophy, confirm_trophy_manager, remove_team
 
 name = 'team'
 urlpatterns = [
@@ -79,6 +79,12 @@ urlpatterns = [
     # add club manager and view
     path('add_manager/', add_manager, name='add_manager'),
     # path for all inbox message
-    path('dashboard_contact_inbox/', dashboard_contact_inbox, name='dashboard_contact_inbox')
+    path('dashboard_contact_inbox/', dashboard_contact_inbox, name='dashboard_contact_inbox'),
+    path('remove_player/<team_id>/<player_id>/', remove_player, name='remove_player'),
+    # add manager trophy
+    path('add_manager_trophy/', add_manager_trophy, name='add_manager_trophy'),
+    path('give_manager_trophy/<int:id>/', give_manager_trophy, name='give_manager_trophy'),
+    path('confirm_trophy_manager/<int:id>/<trophy_id>/', confirm_trophy_manager, name='confirm_trophy_manager'),
+    path('remove_team/<int:id>/', remove_team, name='remove_team')
 
 ]

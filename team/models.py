@@ -5,6 +5,7 @@ import datetime
 from ckeditor.fields import RichTextField
 
 now = timezone.now()
+today = timezone.now
 today_year_exact = datetime.date.today()
 
 User = settings.AUTH_USER_MODEL
@@ -19,9 +20,11 @@ class Team(models.Model):
     team_picture = models.ImageField(upload_to='images/', default='team_logo.png')
     team_president = models.CharField(max_length=100)
     player = models.ManyToManyField('Player')
+    team_email_transfer = models.EmailField(default='aimegalile@gmail.com')
+    visibility = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'{self.team_name} {self.team_president}'
+        return f'{self.team_name}'
 
     class Meta:
         verbose_name_plural = "Team"
@@ -142,6 +145,7 @@ class Table_Ranking(models.Model):
 class Trophy(models.Model):
     trophy_name = models.CharField(max_length=40)
     trophy_year = models.DateField()
+    trophy_image = models.ImageField(upload_to='images/', default='trophy.png')
 
     def __str__(self):
         return f'{self.trophy_name} -- {self.trophy_year}'
@@ -224,6 +228,8 @@ class Legend_story(models.Model):
         ordering = ['-id']
 
 
+
+
 class Club_managers(models.Model):
     formation = [
         ('4-3-3', '4-3-3'),
@@ -243,6 +249,10 @@ class Club_managers(models.Model):
     manager_age = models.IntegerField()
     manager_country = models.CharField(max_length=30)
     manager_link = models.URLField(blank=True, null=True)
+    current_team = models.ForeignKey(Team, on_delete=models.CASCADE, default=1)
+    current_season = models.ForeignKey(Ranking_Table, on_delete=models.CASCADE, default=1)
+    manager_trophy = models.ManyToManyField('Trophy_manager', blank=True, null=True)
+    date_time = models.DateTimeField(default=today)
 
     def __str__(self):
         return f'{self.manager_name} -- {self.managers_formation}'
@@ -259,6 +269,18 @@ class Club_managers(models.Model):
         super(Club_managers, self).save(*args, **kwargs)
 
 
+class Trophy_manager(models.Model):
+    trophy_name = models.CharField(max_length=50)
+    trophy_year = models.DateField()
+    trophy_image = models.ImageField(upload_to='images/', default='trophy.png')
+
+    def __str__(self):
+        return f'{self.trophy_name} --- {self.trophy_year}'
+
+    class Meta:
+        verbose_name_plural = 'Trophy Manager'
+
+
 class Connect_message(models.Model):
     team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True)
     player = models.ForeignKey(Player, on_delete=models.SET_NULL, null=True)
@@ -266,6 +288,7 @@ class Connect_message(models.Model):
     subject = models.CharField(max_length=50)
     email = models.EmailField()
     body = RichTextField()
+    connect_file = models.FileField(default='answer.pdf')
     date = models.DateTimeField(default=now)
     readed_message = models.BooleanField(default=False)
 

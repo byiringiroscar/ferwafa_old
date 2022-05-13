@@ -3,9 +3,10 @@ from authentication.models import User_profile
 from authentication.forms import ProfileForm, MainProfileForm
 from team.forms import TeamForm, Team_Profile_Form, PlayerForm, PlayerProfileForm, RankingTableForm, \
     TableRankingStandingForm, PlayerStatisticsRankingForm, Legend_story_Form, LiveMatchForm, EditScoreForm, \
-    CreateTrophyForm, ClubManagerForm
+    CreateTrophyForm, ClubManagerForm, AddManagerTrophyForm
 from team.models import Team, Team_profile, Player, Player_profile, Ranking_Table, Table_Ranking, \
-    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team, Club_managers, Connect_message
+    player_statistics_ranking, Legend_story, Live_match, Trophy, Trophy_team, Club_managers, Connect_message, \
+    Trophy_manager
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -19,6 +20,7 @@ User = get_user_model()
 @login_required()
 def dashboard(request):
     user = request.user
+    all_transfer = Connect_message.objects.all().count()
     user_profile = User_profile.objects.get(user=user)
     notification_message = Connect_message.objects.filter(team__user=user, readed_message=False)
     notification = notification_message.count()
@@ -39,7 +41,8 @@ def dashboard(request):
         'number_of_team': number_of_team,
         'total': total,
         'notification_message': notification_message,
-        'notification': notification
+        'notification': notification,
+        'transfer': all_transfer
     }
     return render(request, 'dashboard_home/index.html', context)
 
@@ -81,7 +84,7 @@ def player(request):
         'profile': user_profile,
         'player_all': player_all,
         'team': team,
-        'sum': sum
+        'sum': sum,
     }
     return render(request, 'dashboard_home/player.html', context)
 
@@ -638,7 +641,6 @@ def edit_score(request, id):
         form = EditScoreForm(request.POST or None, instance=live_stat_edit)
         if form.is_valid():
             if match_date_time > now_date_time and now_date_time < match_finish_time:
-                print("again oscar-------------")
                 messages.error(request, "you only allowed to change score when match is live")
             else:
                 form.save()
@@ -712,8 +714,7 @@ def confirm_trophy_cup(request, id, team_id):
     team_trophy = get_object_or_404(Team, id=team_id)
     check_trophy = Trophy_team.objects.filter(trophy=trophy_type, team=team_trophy)
     if check_trophy.exists():
-        messages.error("multiple trophy on multiple team not allowed")
-        context = {'messages': messages}
+        messages.error(request, "same multiple trophy not allowed on one team")
         return redirect('give_team_trophy', id=trophy_type.id)
     if not check_trophy.exists():
         trophy_team = Trophy_team.objects.create(trophy=trophy_type, team=team_trophy)
@@ -759,3 +760,70 @@ def dashboard_contact_inbox(request):
         'notification_message_all_count': notification_message_all_count
     }
     return render(request, 'dashboard_home/dashboard_contact_inbox.html', context)
+
+
+def add_manager_trophy(request):
+    trophy = Trophy_manager.objects.all().order_by('-trophy_year')
+    form = AddManagerTrophyForm()
+    if request.method == 'POST':
+        form = AddManagerTrophyForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            form.save()
+            return redirect('add_manager_trophy')
+    else:
+        form = AddManagerTrophyForm()
+    context = {
+        'form': form,
+        'trophy': trophy
+    }
+
+    return render(request, 'dashboard_home/add_manager_trophy.html', context)
+
+
+def give_manager_trophy(request, id):
+    manager_id = get_object_or_404(Club_managers, id=id)
+    all_trophy = Trophy_manager.objects.all().order_by('-trophy_year')
+    context = {
+        'trophy': all_trophy,
+        'coach': manager_id
+    }
+    return render(request, 'dashboard_home/give_manager_trophy.html', context)
+
+
+def confirm_trophy_manager(request, id, trophy_id):
+    all_manager = Club_managers.objects.all()
+    trophy_id = get_object_or_404(Trophy_manager, id=trophy_id)
+    manager_id = get_object_or_404(Club_managers, id=id)
+
+    all_manager_trophy = []
+    for manager in all_manager:
+        manager_ttt = manager.manager_trophy.all()
+        for manager_tro in manager_ttt:
+            m_trophy = all_manager_trophy.append(manager_tro)
+    if trophy_id in all_manager_trophy:
+        messages.error(request, "One Trophy can't be award on different manager")
+        return redirect('give_manager_trophy', id=manager_id.id)
+    else:
+
+        give_coach_trophy = manager_id.manager_trophy.add(trophy_id)
+        messages.success(request, f"Trophy for coach {manager_id.manager_name} added successful ")
+        return redirect('give_manager_trophy', id=manager_id.id)
+
+
+def remove_player(request, team_id, player_id):
+    team_detail = get_object_or_404(Team, id=team_id)
+    player_detail = get_object_or_404(Player, id=player_id)
+    team_detail.player.remove(player_detail)
+    return redirect('dashboard')
+
+
+def remove_team(request, id):
+    team_det = get_object_or_404(Team, id=id)
+    team_visibility = team_det.visibility
+    if team_visibility:
+        Team.objects.filter(id=id).update(visibility=False)
+        return redirect('team_detail', id=team_det.id)
+    else:
+        Team.objects.filter(id=id).update(visibility=True)
+        return redirect('team_detail', id=team_det.id)
+

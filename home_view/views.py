@@ -7,6 +7,9 @@ from datetime import datetime
 from team.forms import ConnectMessageForm
 from team.models import Club_managers
 from .utilis import Util
+import itertools
+import functools
+from django.contrib import messages
 
 now_time = datetime.now()
 
@@ -70,9 +73,12 @@ def home(request):
 def standings(request):
     standing_year = Ranking_Table.objects.all().order_by('-ranking_year')
     ranking_table_year = Table_Ranking.objects.all()
+    counter = functools.partial(next, itertools.count(1))
+
     context = {
         'standing': standing_year,
-        'ranking_table_year': ranking_table_year
+        'ranking_table_year': ranking_table_year,
+        'counter': counter
     }
     return render(request, 'home_view/standings.html', context)
 
@@ -94,7 +100,7 @@ def contact(request):
 
 
 def club_team(request):
-    team = Team.objects.all()
+    team = Team.objects.filter(visibility=True)
     context = {
         'team': team
     }
@@ -108,6 +114,7 @@ def home_team_detail(request, id):
     ranking_table_year_first = Ranking_Table.objects.all().order_by('-ranking_year')[0]
     table_ranking = Table_Ranking.objects.filter(ranking=ranking_table_year_first)
     table_check_win_loss = Table_Ranking.objects.filter(team=team_detail, ranking=ranking_table_year_first).exists()
+    counter = functools.partial(next, itertools.count(1))
     if table_check_win_loss:
         table_win_loss = get_object_or_404(Table_Ranking, team=team_detail, ranking=ranking_table_year_first)
         win = table_win_loss.win
@@ -125,7 +132,8 @@ def home_team_detail(request, id):
         'table_ranking': table_ranking,
         'win_percent': win_percent,
         'loss_percent': loss_percent,
-        'now_time': now_time_slide
+        'now_time': now_time_slide,
+        'counter': counter
     }
     return render(request, 'home_view/home_team_detail.html', context)
 
@@ -173,11 +181,18 @@ def home_upcoming_match(request):
 
 def home_manager_detail(request, id):
     manager_detail = get_object_or_404(Club_managers, id=id)
+    manager_team = manager_detail.current_team
+    manager_rank_year = manager_detail.current_season
     manager_formation = str(manager_detail.managers_formation)
+    manager_trophy = manager_detail.manager_trophy.all()
+    manager_table_rank = Table_Ranking.objects.filter(team=manager_team).filter(ranking=manager_rank_year)
+
 
     context = {
         'coach': manager_detail,
         'manager_formation': manager_formation,
+        'manager_trophy': manager_trophy,
+        'manager_table_rank': manager_table_rank
     }
     return render(request, 'home_view/home_manager_detail.html', context)
 
@@ -185,18 +200,24 @@ def home_manager_detail(request, id):
 def home_contact_connect(request, id, player_id):
     team_contact = get_object_or_404(Team, id=id)
     player_contact = get_object_or_404(Player, id=player_id)
+    team_contact_email = team_contact.team_email_transfer
     form = ConnectMessageForm()
+
     if request.method == 'POST':
-        form = ConnectMessageForm(request.POST)
+        form = ConnectMessageForm(request.POST, request.FILES)
         if form.is_valid():
             name = form.cleaned_data.get('name')
             subject = form.cleaned_data.get('subject')
             email = form.cleaned_data.get('email')
             body = form.cleaned_data.get('body')
-            Connect_message.objects.create(team=team_contact, player=player_contact, name=name, subject=subject, email=email, body=body)
-            data = {'email_subject': subject, 'email_body': body, 'to_email': 'byiringoroscar@gmail.com'}
-            Util.send_email(data)
-            return redirect('home_view')
+            scout_file = form.cleaned_data.get('file_field')
+            body_message = f' \n {body} \n my contact is : \n {email} '
+            Connect_message.objects.create(team=team_contact, player=player_contact, name=name, subject=subject,
+                                           email=email, connect_file=scout_file, body=body_message)
+            data = {'email_subject': subject, 'email_body': body_message, 'to_email': team_contact_email}
+            Util.send_email(data, scout_file)
+            messages.info(request, "Your message sent successful")
+            return redirect('home_contact_connect', id=team_contact.id, player_id=player_contact.id)
     else:
         form = ConnectMessageForm()
 
@@ -206,4 +227,3 @@ def home_contact_connect(request, id, player_id):
         'form': form
     }
     return render(request, 'home_view/home_contact_connect.html', context)
-

@@ -6,7 +6,7 @@
         <div class="content-wrapper">
           <div class="page-header">
             <h3 class="page-title">
-              Choose to Team to take {{ trophy.trophy_name }}
+              Choose Team Win {{ trophy.trophy_name }} in {{ trophy.trophy_year }}
             </h3>
           </div>
             <div class="row">
@@ -14,6 +14,13 @@
                     <div class="card">
                     <div class="card-body">
                         <div class="row">
+                        {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-success" role="alert">
+                                         {{ message }}
+                                </div>
+                                {% endfor %}
+                        {% endif %}
 
                         <div class="col-12">
                             <div class="row portfolio-grid">
