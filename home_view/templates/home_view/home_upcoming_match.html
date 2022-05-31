@@ -10,62 +10,40 @@
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
 
-<ul class="tab-filters" role="tablist">
-    <li class="active"><a href="#all" role="tab" data-toggle="tab" aria-expanded="true">All</a></li>
-    <li><a href="#nationalcup" role="tab" data-toggle="tab" aria-expanded="true">PEACE CUP</a></li>
-</ul>
+                        <ul class="tab-filters" role="tablist">
+                            <li class="active"><a href="#all" role="tab" data-toggle="tab" aria-expanded="true">All</a></li>
+                        </ul>
+                    {% if upcoming_match %}
 
-<div class="tab-content">
-    <div class="tab-pane active" id="all">
-        <div class="amateurs-main-match">
-            <div class="title">{{ upcoming_match_first.match_type }} </div>
-            <a href="#" class="team">
-                <span class="image"><img src="{{ upcoming_match_first.team1_logo.url }}" alt="main-match"></span>
-                <span class="info">
-                    <span class="name">{{ upcoming_match_first.team1 }}</span>
-                </span>
-            </a>
-            <div class="score">
-                <span>{{ upcoming_match_first.team1_score }}:{{ upcoming_match_first.team2_score }}</span>
-            </div>
-            <a href="#" class="team guest">
-                <span class="info">
-                    <span class="name">{{ upcoming_match_first.team2 }}</span>
-                </span>
-                <span class="image"><img src="{{ upcoming_match_first.team2_logo.url }}" alt="main-match"></span>
-            </a>
-            <div class="title">{{ upcoming_match_first.date }}</div>
-        </div>
-    </div>
-    <div class="tab-pane" id="nationalcup">
-        <div class="amateurs-main-match">
-            <div class="title">National Cup - Round 1</div>
-            <a href="#" class="team">
-                <span class="image"><img src="{% static 'images/soccer/team-logo3.png' %}" alt="main-match"></span>
-                <span class="info">
-                    <span class="name">Internacional</span>
-                    <span class="city">london</span>
-                </span>
-            </a>
-            <div class="score">
-                <span>3:2</span>
-            </div>
-            <a href="#" class="team guest">
-                <span class="info">
-                    <span class="name">Arsenalp</span>
-                    <span class="city">Lyon</span>
-                </span>
-                <span class="image"><img src="{% static 'images/soccer/team-logo4.png' %}" alt="main-match"></span>
-            </a>
-            <div class="title">26 september / 8:45 PM</div>
-        </div>
-    </div>
-</div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="all">
+                                <div class="amateurs-main-match">
+                                    <div class="title">{{ upcoming_match_first.match_type }} </div>
+                                    <a href="#" class="team">
+                                        <span class="image"><img src="{{ upcoming_match_first.team1_logo.url }}" alt="main-match"></span>
+                                        <span class="info">
+                                            <span class="name">{{ upcoming_match_first.team1 }}</span>
+                                        </span>
+                                    </a>
+                                    <div class="score">
+                                        <span>{{ upcoming_match_first.team1_score }}:{{ upcoming_match_first.team2_score }}</span>
+                                    </div>
+                                    <a href="#" class="team guest">
+                                        <span class="info">
+                                            <span class="name">{{ upcoming_match_first.team2 }}</span>
+                                        </span>
+                                        <span class="image"><img src="{{ upcoming_match_first.team2_logo.url }}" alt="main-match"></span>
+                                    </a>
+                                    <div class="title">{{ upcoming_match_first.date }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12"><h6>UPCOMING MATCHES</h6></div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
-
-<div class="main-lates-matches">
+                    {% if upcoming_match %}
+                    <div class="main-lates-matches">
     {% for upcoming_match in upcoming_match %}
     <a href="#" class="item">
         <span class="championship">{{ upcoming_match.date }}</span>
@@ -89,6 +67,7 @@
     {% endfor %}
 
 </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

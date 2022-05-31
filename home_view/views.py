@@ -10,6 +10,7 @@ from .utilis import Util
 import itertools
 import functools
 from django.contrib import messages
+from django.db.models import Q
 
 now_time = datetime.now()
 
@@ -84,11 +85,20 @@ def standings(request):
 
 
 def matchlive(request):
-    return render(request, 'home_view/matchlive.html')
+    match_li = Live_match.objects.filter(date__gte=now_time)
+    context = {
+        'match_live': match_li,
+        'now_time': now_time
+    }
+    return render(request, 'home_view/matchlive.html', context)
 
 
 def upcoming(request):
-    return render(request, 'home_view/upcoming.html')
+    upcoming_m = Live_match.objects.filter(date__gt=now_time)
+    context = {
+        'upcoming_match': upcoming_m
+    }
+    return render(request, 'home_view/upcoming.html', context)
 
 
 def search(request):
@@ -170,8 +180,8 @@ def home_player_detail(request, id, player_id):
 
 
 def home_upcoming_match(request):
-    upcoming_match = Live_match.objects.all().filter(date__gte=now_time)
-    upcoming_match_first = Live_match.objects.all().filter(date__gte=now_time).first()
+    upcoming_match = Live_match.objects.all().filter(date__gte=now_time, suspended=False)
+    upcoming_match_first = Live_match.objects.all().filter(date__gte=now_time, suspended=False).first()
     context = {
         'upcoming_match': upcoming_match,
         'upcoming_match_first': upcoming_match_first
@@ -186,13 +196,25 @@ def home_manager_detail(request, id):
     manager_formation = str(manager_detail.managers_formation)
     manager_trophy = manager_detail.manager_trophy.all()
     manager_table_rank = Table_Ranking.objects.filter(team=manager_team).filter(ranking=manager_rank_year)
+    win = 0
+    loss = 0
+    game_played = 0
+    for manager_rate in manager_table_rank:
+        manager_win = win + manager_rate.win
+        manager_loss = loss + manager_rate.loss
+        manager_game = game_played + manager_rate.game_played
+    win_percentage = (manager_win * 100) / manager_game
+    loss_percentage = (manager_loss * 100) / manager_game
+
 
 
     context = {
         'coach': manager_detail,
         'manager_formation': manager_formation,
         'manager_trophy': manager_trophy,
-        'manager_table_rank': manager_table_rank
+        'manager_table_rank': manager_table_rank,
+        'win_percentage': int(win_percentage),
+        'loss_percentage': int(loss_percentage)
     }
     return render(request, 'home_view/home_manager_detail.html', context)
 

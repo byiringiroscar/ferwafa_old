@@ -47,11 +47,11 @@
                             <p class="name">{{ coach.manager_name }}</p>
                             <div class="wrapper-circle">
                                 <div class="circle-item" >
-                                    <div class="circle-bar" id="circle_1" data-percent="65"></div>
+                                    <div class="circle-bar" id="circle_1" data-percent="{{ win_percentage }}"></div>
                                     <div class="text">Win Rating</div>
                                 </div>
                                 <div class="circle-item" >
-                                    <div class="circle-bar" id="circle_2" data-percent="29"></div>
+                                    <div class="circle-bar" id="circle_2" data-percent="{{ loss_percentage }}"></div>
                                     <div class="text">Loss Rating</div>
                                 </div>
                             </div>

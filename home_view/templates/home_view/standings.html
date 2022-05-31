@@ -53,7 +53,6 @@
                                     <th>won</th>
                                     <th>drawn</th>
                                     <th>lost</th>
-                                    <th>gd</th>
                                     <th>points</th>
                                 </tr>
                                 {% for team_year in ranking_table_year %}
@@ -66,7 +65,6 @@
                                     <td>{{ team_year.win }}</td>
                                     <td>{{ team_year.draw }}</td>
                                     <td>{{ team_year.loss }}</td>
-                                    <td>+16</td>
                                     <td class="points"><span>{{ team_year.team_points }}</span></td>
 
                                 </tr>

@@ -749,13 +749,11 @@ def dashboard_contact_inbox(request):
     user_profile = User_profile.objects.get(user=user)
     notification_message_all = Connect_message.objects.filter(team__user=user)
     notification_message_all_count = notification_message_all.count()
-    notification_message = Connect_message.objects.filter(team__user=user, readed_message=False)
-    notification = notification_message.count()
+    notification_message = Connect_message.objects.filter(team__user=user, readed_message=False).update(readed_message=True)
+    # for noti in
     context = {
         'user': user,
         'profile': user_profile,
-        'notification_message': notification_message,
-        'notification': notification,
         'notification_message_all': notification_message_all,
         'notification_message_all_count': notification_message_all_count
     }
